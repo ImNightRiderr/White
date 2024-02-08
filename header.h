@@ -8,6 +8,26 @@
 
 using namespace std;
 
+
+void createMainDirectory() {
+    string directoryMainPath;
+    char buffer[MAX_PATH];
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    string directory(buffer);
+    size_t lastSlashIndex = directory.find_last_of("\\");
+    directoryMainPath = directory.substr(0, lastSlashIndex) + "\\White";
+    CreateDirectory(directoryMainPath.c_str(), NULL);
+    string manuali = directoryMainPath + "\\manuali";
+    CreateDirectory(manuali.c_str(), NULL);
+    string journal = directoryMainPath + "\\journal";
+    CreateDirectory(journal.c_str(), NULL);
+}
+
+void openBrowser(string urlBrowser) {
+    string command = "start " + urlBrowser;
+    system(command.c_str());
+}
+
 string password()
 {
     string password;
@@ -23,6 +43,15 @@ string password()
         cout << '*';
     }
     return password;
+}
+
+void executeJournal(string journalCommand, string savedFile) {
+    char buffer[MAX_PATH];
+    GetCurrentDirectoryA(MAX_PATH, buffer);
+    string saveDirectory(buffer);
+    string command = journalCommand + saveDirectory + "\\White\\journal" + savedFile;
+    cout<<"\x1B[34mEseguendo l'operazione, potrebbero volerci alcuni secondi...\033[0m"<<endl;
+	system(command.c_str());
 }
 
 bool IsUserAdmin()
@@ -45,10 +74,16 @@ bool IsUserAdmin()
 
 void downloadFile(string fileUrl, string fileName)
 {
+	
     char buffer[MAX_PATH];
     GetCurrentDirectoryA(MAX_PATH, buffer);
     string saveDirectory(buffer);
-    string command = "powershell -ExecutionPolicy Bypass -Command \"Invoke-WebRequest -Uri " + fileUrl + " -OutFile '" + saveDirectory + "\\" + fileName + "'\"";
-    system(command.c_str());
+    if(fileName == "avange.exe") {
+		string command = "powershell -ExecutionPolicy Bypass -Command \"Invoke-WebRequest -Uri " + fileUrl + " -OutFile '" + saveDirectory + "\\White\\automatici\\" + fileName + "'\"";
+		system(command.c_str());
+	} else {
+		string command = "powershell -ExecutionPolicy Bypass -Command \"Invoke-WebRequest -Uri " + fileUrl + " -OutFile '" + saveDirectory + "\\White\\manuali\\" + fileName + "'\"";
+		system(command.c_str());
+	}
 }
 

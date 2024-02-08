@@ -14,7 +14,12 @@ This work is licensed under a
 TERM OF SERVICE
 
 By downloading this program you agree to the CC BY-NC-SA 4.0 license.
+
 The creator of the software takes no responsibility for how this software may be used. 
+
 Using this software you may have the option of downloading via direct link or via popup window third-party software, if you use these features:
 -The creator of the software takes no responsibility for the third-party programs downloaded and/or third-party websites visited, does not own the rights to them, and is not affiliated with them.
+
 -By downloading and/or accessing via the above modes these programs and/or software you will be agreeing to the privacy policy and terms of service of these services (such as NirSoft https://www.nirsoft.net, ECHO https://www.echo.ac, Avenge https://avenge.ac/, Paladin https://paladin.ac/, SourceForge https://sourceforge.net/, GitHub https://github.com/)
+
+IF YOU DISAGREE WITH THESE POLICIES DO NOT DOWNLOAD OR USE THE SOFTWARE

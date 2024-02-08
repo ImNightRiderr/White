@@ -1,11 +1,10 @@
-#include <header.h>
+#include <C:\Users\GameFire\Desktop\SenzaTitolo1.h>
 
 using namespace std;
-namespace hd = header.h;
+
 void menu();
 
-void manuali()
-{
+void manuali() {
     int selectManuale;
     system("CLS");
     cout << "\x1B[34mTool Manuali\033[0m" << endl;
@@ -23,39 +22,39 @@ void manuali()
     switch (selectManuale)
     {
     case 1:
-        hd::downloadFile("https://github.com/processhacker/processhacker/releases/download/v2.39/processhacker-2.39-setup.exe", "processhacker.exe");
+        downloadFile("https://github.com/processhacker/processhacker/releases/download/v2.39/processhacker-2.39-setup.exe", "processhacker.exe");
         menu();
         break;
     case 2:
-        hd::downloadFile("https://www.nirsoft.net/utils/lastactivityview.zip", "lastactivityview.zip");
+        downloadFile("https://www.nirsoft.net/utils/lastactivityview.zip", "lastactivityview.zip");
         menu();
         break;
     case 3:
-        hd::downloadFile("https://www.nirsoft.net/utils/winprefetchview-x64.zip", "winprefetchview-x64.zip");
+        downloadFile("https://www.nirsoft.net/utils/winprefetchview-x64.zip", "winprefetchview-x64.zip");
         menu();
         break;
     case 4:
-        hd::downloadFile("https://github.com/deathmarine/Luyten/releases/download/v0.5.4_Rebuilt_with_Latest_depenencies/luyten-0.5.4.exe", "luyten.exe");
+        downloadFile("https://github.com/deathmarine/Luyten/releases/download/v0.5.4_Rebuilt_with_Latest_depenencies/luyten-0.5.4.exe", "luyten.exe");
         menu();
         break;
     case 5:
-        hd::downloadFile("https://www.voidtools.com/Everything-1.4.1.1024.x64.zip", "Everything-x64.zip");
+        downloadFile("https://www.voidtools.com/Everything-1.4.1.1024.x64.zip", "Everything-x64.zip");
         menu();
         break;
     case 6:
-        hd::downloadFile("https://www.nirsoft.net/utils/alternatestreamview-x64.zip", "alternatestreamview-x64.zip");
+        downloadFile("https://www.nirsoft.net/utils/alternatestreamview-x64.zip", "alternatestreamview-x64.zip");
         menu();
         break;
     case 7:
-        hd::downloadFile("https://www.nirsoft.net/utils/previousfilesrecovery-x64.zip", "previousfilesrecovery-x64.zip");
+        downloadFile("https://www.nirsoft.net/utils/previousfilesrecovery-x64.zip", "previousfilesrecovery-x64.zip");
         menu();
         break;
     case 8:
-        hd::downloadFile("https://www.nirsoft.net/utils/regscanner-x64.zip", "regscanner-x64.zip");
+        downloadFile("https://www.nirsoft.net/utils/regscanner-x64.zip", "regscanner-x64.zip");
         menu();
         break;
     case 9:
-        hd::downloadFile("https://www.nirsoft.net/utils/usbdeview-x64.zip", "usbdeview-x64.zip");
+        downloadFile("https://www.nirsoft.net/utils/usbdeview-x64.zip", "usbdeview-x64.zip");
         menu();
         break;
     }
@@ -68,25 +67,41 @@ void automatici() {
     cout << "\x1B[34m[1]\033[0m Download Avenge" << endl;
     cout << "\x1B[34m[2]\033[0m Download Echo (Via Browser)" << endl;
     cout << "\x1B[34m[3]\033[0m Download Paladine (Via Browser)" << endl;
-    cin >> manuale;
+    cin >> selectAuto;
 
-    switch (manuale)
+    switch (selectAuto)
     {
     case 1:
-        hd::downloadFile("https://dl.avenge.ac", "avange.exe");
+        downloadFile("https://dl.avenge.ac", "avange.exe");
         menu();
         break;
     case 2:
-        char *linkChar = "[https://dl.echo.ac]";
-        ShellExecute(NULL, NULL, linkChar, NULL, NULL, SW_SHOWNORMAL);
+        openBrowser("https://dl.echo.ac");
         menu();
         break;
     case 3:
-        char *linkChar = "[https://dl.paladin.ac]";
-        ShellExecute(NULL, NULL, linkChar, NULL, NULL, SW_SHOWNORMAL);
+        openBrowser("https://dl.paladin.ac");
         menu();
         break;
     }
+}
+
+void journal() {
+    system("CLS");
+    int selectJournal;
+    cout << "\x1B[34mTool Automatici\033[0m" << endl;
+    cout << "\x1B[34m[1]\033[0m Download Avenge" << endl;
+    cout << "\x1B[34m[2]\033[0m Download Echo (Via Browser)" << endl;
+    cout << "\x1B[34m[3]\033[0m Download Paladine (Via Browser)" << endl;
+    cin >> selectJournal;
+	switch(selectJournal) {
+        case 1:
+            executeJournal("fsutil usn readjournal c: csv | findstr /i /C:\"0x80000200\" | findstr /i /C:.exe /i /C:.py /i /C:.jar /i /C:.dll /i /C:.com /i /C:.pif /i /C:.txt /i /C:.jpg /i /C:.jpeg /i /C:.png /i /C:.lnk /i /C:.mp3 /i /C:.mp4 /i /C:.mkv /i /C:.avi /i /C:.ico /i /C:.bat /i /C:.cmd /i /C:.reg /i /C:.zip /i /C:.rar /i /C:.7z /i /C:.ini /i /C:.html /i /C:.ppt /i /C:.docx /i /C:.xlsx /i /C:.chm /i /C:.aspx /i /C:.app /i /C:? > ", "\\deletedfiles.txt");
+            menu();
+            break;
+    }
+	
+    menu();
 }
 
 void menu() {
@@ -111,28 +126,41 @@ void menu() {
         break;
     case 2: 
         automatici(); 
-        break; /*
-    case 3: journal(); break;
-        case 4: macro(); break;
-        case 5: registro(); break;
-        case 6: evtvwr(); break;
-        case 7: record(); break;
-        case 8: return 0; break;*/
+        break;
+    case 3: 
+		journal(); 
+		break;
+	/*	
+    case 4: 
+		macro(); 
+		break;
+    case 5: 
+		registro(); 
+		break;
+    case 6: 
+		evtvwr(); 
+		break;
+    case 7: 
+		record(); 
+		break; */
+    case 8:  
+		break;
     }
 }
 
 int main()
 {
-    if (!hd::IsUserAdmin())
+	
+    /*if (!IsUserAdmin())
     {
         cout << "Per eseguire questo programma avvialo come amministratore." << endl;
         system("PAUSE");
         return 0;
-    }
+    } */
     bool pwok = false;
     do
     {
-        string pw = hd::password();
+        string pw = password();
         if (pw == "abc")
         {
             pwok = true;
@@ -143,6 +171,7 @@ int main()
             system("CLS");
         }
     } while (pwok == false);
-
+    createMainDirectory();
+	menu();
     return 0;
 }

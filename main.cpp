@@ -4,7 +4,8 @@ using namespace std;
 
 void menu();
 
-void manuali() {
+void manuali()
+{
     int selectManuale;
     system("CLS");
     cout << "\x1B[34mTool Manuali\033[0m" << endl;
@@ -60,7 +61,8 @@ void manuali() {
     }
 }
 
-void automatici() {
+void automatici()
+{
     int selectAuto;
     system("CLS");
     cout << "\x1B[34mTool Automatici\033[0m" << endl;
@@ -86,25 +88,38 @@ void automatici() {
     }
 }
 
-void journal() {
+void journal()
+{
     system("CLS");
     int selectJournal;
-    cout << "\x1B[34mTool Automatici\033[0m" << endl;
-    cout << "\x1B[34m[1]\033[0m Download Avenge" << endl;
-    cout << "\x1B[34m[2]\033[0m Download Echo (Via Browser)" << endl;
-    cout << "\x1B[34m[3]\033[0m Download Paladine (Via Browser)" << endl;
+    cout << "\x1B[34mJournal Paths\033[0m" << endl;
+    cout << "\x1B[34m[1]\033[0m Security changes" << endl;
+    cout << "\x1B[34m[2]\033[0m Explorer restart" << endl;
+    cout << "\x1B[34m[3]\033[0m Deleted files" << endl;
+    cout << "\x1B[34m[4]\033[0m Renamed files" << endl;
+    cout << "\x1B[34m[5]\033[0m File streams" << endl;
+    cout << "\x1B[34m[6]\033[0m Jarcache" << endl;
+    cout << "\x1B[34m[7]\033[0m Type" << endl;
+   
     cin >> selectJournal;
-	switch(selectJournal) {
-        case 1:
-            executeJournal("fsutil usn readjournal c: csv | findstr /i /C:\"0x80000200\" | findstr /i /C:.exe /i /C:.py /i /C:.jar /i /C:.dll /i /C:.com /i /C:.pif /i /C:.txt /i /C:.jpg /i /C:.jpeg /i /C:.png /i /C:.lnk /i /C:.mp3 /i /C:.mp4 /i /C:.mkv /i /C:.avi /i /C:.ico /i /C:.bat /i /C:.cmd /i /C:.reg /i /C:.zip /i /C:.rar /i /C:.7z /i /C:.ini /i /C:.html /i /C:.ppt /i /C:.docx /i /C:.xlsx /i /C:.chm /i /C:.aspx /i /C:.app /i /C:? > ", "\\deletedfiles.txt");
-            menu();
-            break;
+    switch (selectJournal)
+    {
+    case 1:
+        executeJournal("fsutil usn readjournal c: csv | findstr /i /C:"0x00000800" | findstr /i /C:.exe\^" /i /C:Prefetch >", "\\securitychanges.txt")
+        break;
+    case 2:
+        break;
+    case 3:
+        executeJournal("fsutil usn readjournal c: csv | findstr /i /C:\"0x80000200\" | findstr /i /C:.exe /i /C:.py /i /C:.jar /i /C:.dll /i /C:.com /i /C:.pif /i /C:.txt /i /C:.jpg /i /C:.jpeg /i /C:.png /i /C:.lnk /i /C:.mp3 /i /C:.mp4 /i /C:.mkv /i /C:.avi /i /C:.ico /i /C:.bat /i /C:.cmd /i /C:.reg /i /C:.zip /i /C:.rar /i /C:.7z /i /C:.ini /i /C:.html /i /C:.ppt /i /C:.docx /i /C:.xlsx /i /C:.chm /i /C:.aspx /i /C:.app /i /C:? > ", "\\deletedfiles.txt");
+        menu();
+        break;
     }
-	
+
     menu();
 }
 
-void menu() {
+void menu()
+{
     system("CLS");
     int select;
     cout << "\x1B[34mWhite.exe By: NightRiderr_ | Original Creation: White.bat by: ??\033[0m" << endl
@@ -124,33 +139,33 @@ void menu() {
     case 1:
         manuali();
         break;
-    case 2: 
-        automatici(); 
+    case 2:
+        automatici();
         break;
-    case 3: 
-		journal(); 
-		break;
-	/*	
-    case 4: 
-		macro(); 
-		break;
-    case 5: 
-		registro(); 
-		break;
-    case 6: 
-		evtvwr(); 
-		break;
-    case 7: 
-		record(); 
-		break; */
-    case 8:  
-		break;
+    case 3:
+        journal();
+        break;
+    /*
+    case 4:
+        macro();
+        break;
+    case 5:
+        registro();
+        break;
+    case 6:
+        evtvwr();
+        break;
+    case 7:
+        record();
+        break; */
+    case 8:
+        break;
     }
 }
 
 int main()
 {
-	
+
     /*if (!IsUserAdmin())
     {
         cout << "Per eseguire questo programma avvialo come amministratore." << endl;
@@ -172,6 +187,6 @@ int main()
         }
     } while (pwok == false);
     createMainDirectory();
-	menu();
+    menu();
     return 0;
 }

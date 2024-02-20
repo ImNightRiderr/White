@@ -52,6 +52,8 @@ void executeJournal(string journalCommand, string savedFile) {
     string command = journalCommand + saveDirectory + "\\White\\journal" + savedFile;
     cout<<"\x1B[34mEseguendo l'operazione, potrebbero volerci alcuni secondi...\033[0m"<<endl;
 	system(command.c_str());
+    cout << "\x1B[34mOperazione eseguita salvato il file in: " << saveDirectory + "\\White\\journal" + savedFile << "\033[0m" << endl;
+    sleep(10);
 }
 
 bool IsUserAdmin()

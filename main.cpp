@@ -105,13 +105,16 @@ void journal()
     switch (selectJournal)
     {
     case 1:
-        executeJournal("fsutil usn readjournal c: csv | findstr /i /C:"0x00000800" | findstr /i /C:.exe\^" /i /C:Prefetch >", "\\securitychanges.txt")
+        executeJournal("fsutil usn readjournal c: csv | findstr /i /C:\"0x00000800\" | findstr /i /C:.exe /i /C:Prefetch >", "\\securitychanges.txt");
         break;
     case 2:
+        executeJournal("fsutil usn readJournal c: csv | findstr /i /C:\"0x00000100\" | findstr /i /C:explorer /i /C:.pf >", "\\restartexplorer.txt");
         break;
     case 3:
         executeJournal("fsutil usn readjournal c: csv | findstr /i /C:\"0x80000200\" | findstr /i /C:.exe /i /C:.py /i /C:.jar /i /C:.dll /i /C:.com /i /C:.pif /i /C:.txt /i /C:.jpg /i /C:.jpeg /i /C:.png /i /C:.lnk /i /C:.mp3 /i /C:.mp4 /i /C:.mkv /i /C:.avi /i /C:.ico /i /C:.bat /i /C:.cmd /i /C:.reg /i /C:.zip /i /C:.rar /i /C:.7z /i /C:.ini /i /C:.html /i /C:.ppt /i /C:.docx /i /C:.xlsx /i /C:.chm /i /C:.aspx /i /C:.app /i /C:? > ", "\\deletedfiles.txt");
-        menu();
+        break;
+    case 4:
+        executeJournal("fsutil usn readjournal c: csv | findstr /i /C:\"0x00002000\" /i /C:\"0x00001000\" | findstr /i /C:.exe\\^\" /i /C:.py\\^\" /i /C:.jar\\^\" /i /C:.dll\\^\" /i /C:.com\\^\" /i /C:.pif\\^\" /i /C:.txt\\^\" /i /C:.jpg\\^\" /i /C:.jpeg\\^\" /i /C:.png\\^\" /i /C:.lnk\\^\" /i /C:.mp3\\^\" /i /C:.mp4\\^\" /i /C:.mkv\\^\" /i /C:.avi\\^\" /i /C:.ico\\^\" /i /C:.bat\\^\" /i /C:.cmd\\^\" /i /C:.reg\\^\" /i /C:.zip\\^\" /i /C:.rar\\^\" /i /C:.7z\\^\" /i /C:.ini\\^\" /i /C:.html\\^\" /i /C:.ppt\\^\" /i /C:.docx\\^\" /i /C:.xlsx\\^\" /i /C:.chm\\^\" /i /C:.aspx\\^\" /i /C:.app\\^\" /i /C:? >", "\\renamedfiles.txt");
         break;
     }
 

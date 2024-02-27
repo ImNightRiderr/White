@@ -2,28 +2,13 @@
 #include <windows.h>
 #include <string>
 #include <conio.h>
-#include <limits.h>
-#include <fstream>
-#include <cstdlib>
+#include <shlobj.h>
+#include <vector>
 
 using namespace std;
 
-
-void createMainDirectory() {
-    string directoryMainPath;
-    char buffer[MAX_PATH];
-    GetModuleFileName(NULL, buffer, MAX_PATH);
-    string directory(buffer);
-    size_t lastSlashIndex = directory.find_last_of("\\");
-    directoryMainPath = directory.substr(0, lastSlashIndex) + "\\White";
-    CreateDirectory(directoryMainPath.c_str(), NULL);
-    string manuali = directoryMainPath + "\\manuali";
-    CreateDirectory(manuali.c_str(), NULL);
-    string journal = directoryMainPath + "\\journal";
-    CreateDirectory(journal.c_str(), NULL);
-}
-
-void openBrowser(string urlBrowser) {
+void openBrowser(string urlBrowser)
+{
     string command = "start " + urlBrowser;
     system(command.c_str());
 }
@@ -45,47 +30,40 @@ string password()
     return password;
 }
 
-void executeJournal(string journalCommand, string savedFile) {
-    char buffer[MAX_PATH];
-    GetCurrentDirectoryA(MAX_PATH, buffer);
-    string saveDirectory(buffer);
-    string command = journalCommand + saveDirectory + "\\White\\journal" + savedFile;
-    cout<<"\x1B[34mEseguendo l'operazione, potrebbero volerci alcuni secondi...\033[0m"<<endl;
-	system(command.c_str());
-    cout << "\x1B[34mOperazione eseguita salvato il file in: " << saveDirectory + "\\White\\journal" + savedFile << "\033[0m" << endl;
-    sleep(10);
-}
-
-bool IsUserAdmin()
+bool isElevated()
 {
-    BOOL isAdmin = FALSE;
-    SID_IDENTIFIER_AUTHORITY ntAuth = SECURITY_NT_AUTHORITY;
-    PSID adminGroup;
-    if (AllocateAndInitializeSid(&ntAuth, 2, SECURITY_BUILTIN_DOMAIN_RID,
-                                 DOMAIN_ALIAS_RID_ADMINS, 0, 0, 0, 0, 0, 0, &adminGroup))
+    HANDLE token;
+    if (!OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &token))
     {
-        if (!CheckTokenMembership(NULL, adminGroup, &isAdmin))
-        {
-            isAdmin = FALSE;
-        }
-        FreeSid(adminGroup);
+        return false;
     }
-    return isAdmin == TRUE;
+
+    TOKEN_ELEVATION elevation;
+    DWORD size;
+    if (!GetTokenInformation(token, TokenElevation, &elevation, sizeof(elevation), &size))
+    {
+        CloseHandle(token);
+        return false;
+    }
+
+    CloseHandle(token);
+    return elevation.TokenIsElevated;
 }
 
-
-void downloadFile(string fileUrl, string fileName)
+bool elevate()
 {
-	
-    char buffer[MAX_PATH];
-    GetCurrentDirectoryA(MAX_PATH, buffer);
-    string saveDirectory(buffer);
-    if(fileName == "avange.exe") {
-		string command = "powershell -ExecutionPolicy Bypass -Command \"Invoke-WebRequest -Uri " + fileUrl + " -OutFile '" + saveDirectory + "\\White\\automatici\\" + fileName + "'\"";
-		system(command.c_str());
-	} else {
-		string command = "powershell -ExecutionPolicy Bypass -Command \"Invoke-WebRequest -Uri " + fileUrl + " -OutFile '" + saveDirectory + "\\White\\manuali\\" + fileName + "'\"";
-		system(command.c_str());
-	}
-}
+    if (isElevated())
+    {
+        return true;
+    }
 
+    wchar_t moduleName[MAX_PATH];
+    GetModuleFileNameW(nullptr, moduleName, MAX_PATH);
+    SHELLEXECUTEINFOW shellExecuteInfo = {0};
+    shellExecuteInfo.cbSize = sizeof(SHELLEXECUTEINFOW);
+    shellExecuteInfo.lpVerb = L"runas";
+    shellExecuteInfo.lpFile = moduleName;
+    shellExecuteInfo.hwnd = nullptr;
+    shellExecuteInfo.nShow = SW_SHOW;
+    return ShellExecuteExW(&shellExecuteInfo);
+}

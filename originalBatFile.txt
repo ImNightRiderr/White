@@ -62,41 +62,41 @@ set /p M="[36mPlease, choose[37m: "
 
 :: Manual tools
 
-if %M%==1 goto ProcessHacker2
-if %M%==2 goto LastActivityView
-if %M%==3 goto WinPrefetchView
-if %M%==4 goto Luyten
-if %M%==5 goto Everything
-if %M%==6 goto AlternateStreamView
-if %M%==7 goto PreviousFilesRecovery
-if %M%==8 goto RegScanner
-if %M%==9 goto USBDeview
+if %M%==1 goto ProcessHacker2 ::done
+if %M%==2 goto LastActivityView ::done
+if %M%==3 goto WinPrefetchView ::done
+if %M%==4 goto Luyten ::done
+if %M%==5 goto Everything ::done
+if %M%==6 goto AlternateStreamView ::done
+if %M%==7 goto PreviousFilesRecovery ::done
+if %M%==8 goto RegScanner ::done
+if %M%==9 goto USBDeview ::done
 
 :: Automatic tools
 
-if %M%==AV goto Avenge
-if %M%==PA goto Paladin
-if %M%==SM goto SMT
+if %M%==AV goto Avenge ::done
+if %M%==PA goto Paladin ::done
+if %M%==SM goto SMT ::done
 
 :: USN journal paths
 
-if %M%==JDF goto journalDeletedFiles
-if %M%==JRF goto journalRenamedFiles
-if %M%==JFT goto journalFileType
-if %M%==JFS goto journalFileStream
-if %M%==JER goto journalExplorerRestart
-if %M%==JJC goto journalJarcache
-if %M%==JSC goto journalSecurityChanges
+if %M%==JDF goto journalDeletedFiles  ::done
+if %M%==JRF goto journalRenamedFiles ::done
+if %M%==JFT goto journalFileType ::done
+if %M%==JFS goto journalFileStream ::done
+if %M%==JER goto journalExplorerRestart ::done
+if %M%==JJC goto journalJarcache ::done
+if %M%==JSC goto journalSecurityChanges ::done
 
 :: Macro paths
 
-if %M%==L1 goto LogitechGamingSoftware
-if %M%==L2 goto LGHUB
-if %M%==R1 goto ProgramRazer
-if %M%==R2 goto LocalRazer
-if %M%==CO goto Corsair
-if %M%==MO goto GloriousModelO
-if %M%==F5 goto Aukey
+if %M%==L1 goto LogitechGamingSoftware ::done
+if %M%==L2 goto LGHUB ::done
+if %M%==R1 goto ProgramRazer ::done
+if %M%==R2 goto LocalRazer ::done
+if %M%==CO goto Corsair ::done
+if %M%==MO goto GloriousModelO ::done
+if %M%==F5 goto Aukey ::done
 
 :: regedit paths
 

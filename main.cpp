@@ -8,17 +8,17 @@ void manuali()
 {
     system("CLS");
     cout << "\x1B[34mTool Manuali\033[0m" << endl;
-    cout << "\x1B[34m[0]\033[0m Indietro" << endl
+    cout << "\x1B[34m[0]\033[0m \x1B[36mIndietro\033[0m" << endl
          << endl;
-    cout << "\x1B[34m[1]\033[0m Download Process Hacker 2" << endl;
-    cout << "\x1B[34m[2]\033[0m Download LastActivityView" << endl;
-    cout << "\x1B[34m[3]\033[0m Download WinPrefetchView" << endl;
-    cout << "\x1B[34m[4]\033[0m Download Luyten" << endl;
-    cout << "\x1B[34m[5]\033[0m Download Everything" << endl;
-    cout << "\x1B[34m[6]\033[0m Download AlternateStreamView" << endl;
-    cout << "\x1B[34m[7]\033[0m Download PreviousFilesRecovery" << endl;
-    cout << "\x1B[34m[8]\033[0m RegScanner" << endl;
-    cout << "\x1B[34m[9]\033[0m USBDeview" << endl;
+    cout << "\x1B[34m[1]\033[0m \x1B[36mDownload Process Hacker 2\033[0m" << endl;
+    cout << "\x1B[34m[2]\033[0m \x1B[36mDownload LastActivityView\033[0m" << endl;
+    cout << "\x1B[34m[3]\033[0m \x1B[36mDownload WinPrefetchView\033[0m" << endl;
+    cout << "\x1B[34m[4]\033[0m \x1B[36mDownload Luyten\033[0m" << endl;
+    cout << "\x1B[34m[5]\033[0m \x1B[36mDownload Everything\033[0m" << endl;
+    cout << "\x1B[34m[6]\033[0m \x1B[36mDownload AlternateStreamView\033[0m" << endl;
+    cout << "\x1B[34m[7]\033[0m \x1B[36mDownload PreviousFilesRecovery\033[0m" << endl;
+    cout << "\x1B[34m[8]\033[0m \x1B[36mRegScanner\033[0m" << endl;
+    cout << "\x1B[34m[9]\033[0m \x1B[36mUSBDeview\033[0m" << endl;
     string input;
     cin >> input;
     try
@@ -66,7 +66,7 @@ void manuali()
             menu();
             break;
         default:
-            cout << "Errore: inserimento errato, seleziona un numero tra 0 e 9." << endl;
+            cout << "\x1B[34mErrore:\033[0m \x1B[36minserimento errato, seleziona un numero tra 0 e 9.\033[0m" << endl;
             manuali();
         }
     }
@@ -83,11 +83,11 @@ void automatici()
 {
     system("CLS");
     cout << "\x1B[34mTool Automatici\033[0m" << endl;
-    cout << "\x1B[34m[0]\033[0m Indietro" << endl
+    cout << "\x1B[34m[0]\033[0m \x1B[36mIndietro\033[0m" << endl
          << endl;
-    cout << "\x1B[34m[1]\033[0m Download Avenge" << endl;
-    cout << "\x1B[34m[2]\033[0m Download Echo (Via Browser)" << endl;
-    cout << "\x1B[34m[3]\033[0m Download Paladine (Via Browser)" << endl;
+    cout << "\x1B[34m[1]\033[0m \x1B[36mDownload Avenge\033[0m" << endl;
+    cout << "\x1B[34m[2]\033[0m \x1B[36mDownload Echo (Via Browser)\033[0m" << endl;
+    cout << "\x1B[34m[3]\033[0m \x1B[36mDownload Paladine (Via Browser)\033[0m" << endl;
     string input;
     cin >> input;
     try
@@ -111,7 +111,7 @@ void automatici()
             menu();
             break;
         default:
-            cout << "Errore: inserimento errato, seleziona un numero tra 0 e 3." << endl;
+            cout << "\x1B[34mErrore:\033[0m \x1B[36minserimento errato, seleziona un numero tra 0 e 3.\033[0m" << endl;
             automatici();
             break;
         }
@@ -129,15 +129,15 @@ void journal()
 {
     system("CLS");
     cout << "\x1B[34mJournal Paths\033[0m" << endl;
-    cout << "\x1B[34m[0]\033[0m Indietro" << endl
+    cout << "\x1B[34m[0]\033[0m Indietro\033[0m" << endl
          << endl;
-    cout << "\x1B[34m[1]\033[0m Security changes" << endl;
-    cout << "\x1B[34m[2]\033[0m Explorer restart" << endl;
-    cout << "\x1B[34m[3]\033[0m Deleted files" << endl;
-    cout << "\x1B[34m[4]\033[0m Renamed files" << endl;
-    cout << "\x1B[34m[5]\033[0m File streams" << endl;
-    cout << "\x1B[34m[6]\033[0m Jarcache" << endl;
-    cout << "\x1B[34m[7]\033[0m Type" << endl;
+    cout << "\x1B[34m[1]\033[0m Security changes\033[0m" << endl;
+    cout << "\x1B[34m[2]\033[0m Explorer restart\033[0m" << endl;
+    cout << "\x1B[34m[3]\033[0m Deleted files\033[0m" << endl;
+    cout << "\x1B[34m[4]\033[0m Renamed files\033[0m" << endl;
+    cout << "\x1B[34m[5]\033[0m File streams\033[0m" << endl;
+    cout << "\x1B[34m[6]\033[0m Jarcache\033[0m" << endl;
+    cout << "\x1B[34m[7]\033[0m Type\033[0m" << endl;
     string input;
     cin >> input;
     try
@@ -170,7 +170,7 @@ void journal()
             executeJournal("fsutil usn readJournal c: csv | findstr /i /C:\"0x00002020\" /i /C:\"0x00000020\" /i /C:\"0x00200000\" | findstr /i /C:\"0x80008000\" /i /C:\"0x00008006\" /i /C:\"0x80200120\" | findstr /i /C:.exe\\^\" /i /C:.py\\^ \" /i /C:.jar\\^\" /i /C:.dll\\^ \" /i /C:.com\\^\" /i /C:.pif\\^\" /i /C:.txt\\^\" /i /C:.jpg\\^\" /i /C:.jpeg\\^\" /i / C :.png\\^\" /i /C:.lnk\\^\" /i /C:.mp3\\^\" /i /C:.mp4\\^\" /i /C :.mkv\\^\" /i /C:.avi\\^\" /i /C:.ico\\^\" /i /C:.bat\\^\" /i /C:.cmd\\^\" /i /C:.reg\\^\" /i /C:.zip\\^\" /i /C:.rar\\^\" /i /C: .7z\\^\" /i /C:.ini\\^\" /i /C:.html\\^\" /i /C:.ppt\\^\" /i /C:.docx\\^\" /i /C:.xlsx\\^\" /i /C:.chm\\^\" /i /C:.aspx\\^\" /i /C:.app\\^\" /i /C:? >", "\\renamedfiles.txt");
             break;
         default:
-            cout << "Errore: inserimento errato, seleziona un numero tra 0 e 7." << endl;
+            cout << "\x1B[34mErrore:\033[0m \x1B[36minserimento errato, seleziona un numero tra 0 e 7.\033[0m" << endl;
             journal();
         }
 
@@ -191,6 +191,61 @@ void macro()
     cout << "\x1B[34mMacro Paths\033[0m" << endl;
     cout << "\x1B[36mCercando . . .\033[0m" << endl;
     macroSoftwareFinder();
+    menu();
+}
+
+void registro()
+{
+    system("CLS");
+    cout << "\x1B[34mRegistry Paths\033[0m" << endl;
+    cout << "\x1B[34m[0]\033[0m \x1B[36mIndietro\033[0m" << endl
+         << endl;
+    cout << "\x1B[34m[1]\033[0m \x1B[36mExecutable Files Ran\033[0m" << endl;
+    cout << "\x1B[34m[2]\033[0m \x1B[36mExecuted Programs\033[0m" << endl;
+    cout << "\x1B[34m[3]\033[0m \x1B[36mFile Type Associations\033[0m" << endl;
+    cout << "\x1B[34m[4]\033[0m \x1B[36mOpen Save DialogBox\033[0m" << endl;
+    cout << "\x1B[34m[5]\033[0m \x1B[36mPrefetch Parameters\033[0m" << endl;
+    cout << "\x1B[34m[6]\033[0m \x1B[36mMounted Volumes\033[0m" << endl;
+    string input;
+    cin >> input;
+    try
+    {
+        int correctInput = stoi(input);
+        switch (correctInput)
+        {
+        case 0:
+            menu();
+            return;
+            break;
+        case 1:
+            openRegedit("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Applets\\Regedit /v LastKey /t REG_SZ /d HKEY_LOCAL_MACHINE\\SYSTEM\\ControlSet001\\Services\\bam\\State\\UserSettings /f");
+            break;
+        case 2:
+            openRegedit("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Applets\\Regedit /v LastKey /t REG_SZ /d \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Compatibility Assistant\\Store\" /f");
+            break;
+        case 3:
+            openRegedit("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Applets\\Regedit /v LastKey /t REG_SZ /d HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts /f");
+            break;
+        case 4:
+            openRegedit("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Applets\\Regedit /v LastKey /t REG_SZ /d HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\OpenSavePidlMRU /f");
+            break;
+        case 5:
+            openRegedit("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Applets\\Regedit /v LastKey /t REG_SZ /d \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /f");
+            break;
+        case 6:
+            openRegedit("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Applets\\Regedit /v LastKey /t REG_SZ /d HKEY_LOCAL_MACHINE\\SYSTEM\\MountedDevices /f");
+            break;
+        default:
+            cout << "\x1B[34mErrore:\033[0m \x1B[36minserimento errato, seleziona un numero tra 0 e 6.\033[0m" << endl;
+        }
+    }
+    catch (const exception &e)
+    {
+        cout << "\x1B[34mErrore:\033[0m \x1B[36mdevi inserire un numero intero\033[0m" << endl;
+        sleep(1);
+        registro();
+        return;
+    }
     menu();
 }
 
@@ -227,10 +282,9 @@ void menu()
         case 4:
             macro();
             break;
-        /*
         case 5:
             registro();
-            break;
+            break; /*
         case 6:
             evtvwr();
             break;
@@ -259,7 +313,7 @@ int main()
 {
     if (!elevate())
     {
-        cout << "Errore: Impossibile eseguire come amministratore." << endl;
+        cout << "\x1B[34mErrore:\033[0m \x1B[36mImpossibile eseguire come amministratore.\033[0m" << endl;
         system("PAUSE");
         return 1;
     }
@@ -272,7 +326,7 @@ int main()
     do
     {
         string pw = password();
-        if (pw == "abc")
+        if (pw == "kzy")
         {
             pwok = true;
         }

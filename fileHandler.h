@@ -4,6 +4,14 @@ using namespace std;
 
 string programMainPath;
 
+void openRegedit(const string registryKey)
+{
+    string reg_command = "reg add " + registryKey;
+    system(reg_command.c_str());
+    system("start regedit");
+    cout << "Done" << endl;
+}
+
 void createMainDirectory()
 {
     char buffer[MAX_PATH];

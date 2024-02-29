@@ -1,4 +1,4 @@
-#include "header.h"
+#include "C:\Users\GameFire\Desktop\SenzaTitolo1.h"
 
 using namespace std;
 
@@ -10,6 +10,11 @@ void openRegedit(const string registryKey)
     system(reg_command.c_str());
     system("start regedit");
     cout << "Done" << endl;
+}
+
+string getMainPath()
+{
+    return programMainPath;
 }
 
 void createMainDirectory()
@@ -50,8 +55,6 @@ void executeJournal(string journalCommand, string savedFile)
     cout << "\x1B[34mEseguendo l'operazione, potrebbero volerci alcuni secondi...\033[0m" << endl;
     system(command.c_str());
     cout << "\x1B[34mOperazione eseguita salvato il file in: " << programMainPath + "\\journal" + savedFile << "\033[0m" << endl;
-    cout << programMainPath << endl
-         << endl;
     sleep(4);
 }
 

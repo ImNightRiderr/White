@@ -1,4 +1,4 @@
-#include "fileHandler.h"
+#include "C:\Users\GameFire\Desktop\bam.h"
 
 using namespace std;
 
@@ -129,15 +129,15 @@ void journal()
 {
     system("CLS");
     cout << "\x1B[34mJournal Paths\033[0m" << endl;
-    cout << "\x1B[34m[0]\033[0m Indietro\033[0m" << endl
+    cout << "\x1B[34m[0]\033[0m \x1B[36mIndietro\033[0m" << endl
          << endl;
-    cout << "\x1B[34m[1]\033[0m Security changes\033[0m" << endl;
-    cout << "\x1B[34m[2]\033[0m Explorer restart\033[0m" << endl;
-    cout << "\x1B[34m[3]\033[0m Deleted files\033[0m" << endl;
-    cout << "\x1B[34m[4]\033[0m Renamed files\033[0m" << endl;
-    cout << "\x1B[34m[5]\033[0m File streams\033[0m" << endl;
-    cout << "\x1B[34m[6]\033[0m Jarcache\033[0m" << endl;
-    cout << "\x1B[34m[7]\033[0m Type\033[0m" << endl;
+    cout << "\x1B[34m[1]\033[0m \x1B[36mSecurity changes\033[0m" << endl;
+    cout << "\x1B[34m[2]\033[0m \x1B[36mExplorer restart\033[0m" << endl;
+    cout << "\x1B[34m[3]\033[0m \x1B[36mDeleted files\033[0m" << endl;
+    cout << "\x1B[34m[4]\033[0m \x1B[36mRenamed files\033[0m" << endl;
+    cout << "\x1B[34m[5]\033[0m \x1B[36mFile streams\033[0m" << endl;
+    cout << "\x1B[34m[6]\033[0m \x1B[36mJarcache\033[0m" << endl;
+    cout << "\x1B[34m[7]\033[0m \x1B[36mType\033[0m" << endl;
     string input;
     cin >> input;
     try
@@ -249,6 +249,13 @@ void registro()
     menu();
 }
 
+void bam()
+{
+    executeBam();
+    menu();
+    return;
+}
+
 void menu()
 {
     system("CLS");
@@ -256,6 +263,7 @@ void menu()
     cout << "\x1B[34mWhite.exe By: NightRiderr_ | Original Creation: White.bat by: ??\033[0m" << endl
          << endl;
     cout << "\x1B[34mScegli l'operazione:\033[0m" << endl;
+    cout << "\x1B[34m[0]\033[0m \x1B[36mQuit\033[0m" << endl;
     cout << "\x1B[34m[1]\033[0m \x1B[36mTool Manuali\033[0m" << endl;
     cout << "\x1B[34m[2]\033[0m \x1B[36mTool Automatici\033[0m" << endl;
     cout << "\x1B[34m[3]\033[0m \x1B[36mJournal Paths\033[0m" << endl;
@@ -263,13 +271,15 @@ void menu()
     cout << "\x1B[34m[5]\033[0m \x1B[36mRegistry Paths\033[0m" << endl;
     cout << "\x1B[34m[6]\033[0m \x1B[36mEvent Viewer\033[0m" << endl;
     cout << "\x1B[34m[7]\033[0m \x1B[36mRecord\033[0m" << endl;
-    cout << "\x1B[34m[8]\033[0m \x1B[36mQuit\033[0m" << endl;
+    cout << "\x1B[34m[8]\033[0m \x1B[36mBam\033[0m" << endl;
     cin >> input;
     try
     {
         int correctInput = stoi(input);
         switch (correctInput)
         {
+        case 0:
+            return;
         case 1:
             manuali();
             break;
@@ -292,7 +302,8 @@ void menu()
             record();
             break; */
         case 8:
-            return;
+            bam();
+            break;
         default:
             cout << "\x1B[34mErrore:\033[0m \x1B[36minserimento errato, seleziona un numero tra 1 e 8.\033[0m" << endl;
             sleep(1);

@@ -1,6 +1,5 @@
-#include "C:\Users\GameFire\Desktop\fileHandler.h"
+#include "fileHandler.h"
 #include <fstream>
-#include <cstdio>
 
 void executeBam()
 {

@@ -1,4 +1,4 @@
-#include "C:\Users\GameFire\Desktop\bam.h"
+#include "bam.h"
 
 using namespace std;
 

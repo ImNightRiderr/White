@@ -1,4 +1,4 @@
-#include "bam.h"
+#include "bam.h";
 
 using namespace std;
 
@@ -73,10 +73,13 @@ void manuali()
     catch (const exception &e)
     {
         cout << "\x1B[34mErrore:\033[0m \x1B[36mdevi inserire un numero intero\033[0m" << endl;
-        sleep(1);
         manuali();
         return;
     }
+    string c;
+    cout << "\x1B[34mPremere un tasto per continuare. . ." << endl;
+    ;
+    c = _getch();
 }
 
 void automatici()
@@ -100,15 +103,12 @@ void automatici()
             break;
         case 1:
             downloadFile("https://dl.avenge.ac", "avange.exe");
-            menu();
             break;
         case 2:
             openBrowser("https://dl.echo.ac");
-            menu();
             break;
         case 3:
             openBrowser("https://dl.paladin.ac");
-            menu();
             break;
         default:
             cout << "\x1B[34mErrore:\033[0m \x1B[36minserimento errato, seleziona un numero tra 0 e 3.\033[0m" << endl;
@@ -119,10 +119,15 @@ void automatici()
     catch (const exception &e)
     {
         cout << "\x1B[34mErrore:\033[0m \x1B[36mdevi inserire un numero intero\033[0m" << endl;
-        sleep(1);
         automatici();
         return;
     }
+    string c;
+    cout << "\x1B[34mPremere un tasto per continuare. . ." << endl;
+    ;
+    c = _getch();
+    menu();
+    return;
 }
 
 void journal()
@@ -173,16 +178,19 @@ void journal()
             cout << "\x1B[34mErrore:\033[0m \x1B[36minserimento errato, seleziona un numero tra 0 e 7.\033[0m" << endl;
             journal();
         }
-
-        menu();
     }
     catch (const exception &e)
     {
         cout << "\x1B[34mErrore:\033[0m \x1B[36mdevi inserire un numero intero\033[0m" << endl;
-        sleep(1);
         journal();
         return;
     }
+    string c;
+    cout << "\x1B[34mPremere un tasto per continuare. . ." << endl;
+    ;
+    c = _getch();
+    menu();
+    return;
 }
 
 void macro()
@@ -215,7 +223,6 @@ void registro()
         {
         case 0:
             menu();
-            return;
             break;
         case 1:
             openRegedit("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Applets\\Regedit /v LastKey /t REG_SZ /d HKEY_LOCAL_MACHINE\\SYSTEM\\ControlSet001\\Services\\bam\\State\\UserSettings /f");
@@ -242,17 +249,122 @@ void registro()
     catch (const exception &e)
     {
         cout << "\x1B[34mErrore:\033[0m \x1B[36mdevi inserire un numero intero\033[0m" << endl;
-        sleep(1);
         registro();
         return;
     }
+    string c;
+    cout << "\x1B[34mPremere un tasto per continuare. . ." << endl;
+    ;
+    c = _getch();
     menu();
+    return;
 }
 
 void bam()
 {
     executeBam();
     menu();
+    return;
+}
+
+void evtvwr()
+{
+    system("CLS");
+    cout << "\x1B[34mEvent Viewer\033[0m" << endl;
+    cout << "\x1B[34m[0]\033[0m \x1B[36mIndietro\033[0m" << endl
+         << endl;
+    cout << "\x1B[34m[1]\033[0m \x1B[36mTime Change\033[0m" << endl;
+    cout << "\x1B[34m[2]\033[0m \x1B[36mLog Clear\033[0m" << endl;
+    cout << "\x1B[34m[3]\033[0m \x1B[36mApplications Journal\033[0m" << endl;
+    cout << "\x1B[34m[4]\033[0m \x1B[36mNTFS Journal\033[0m" << endl;
+    cout << "\x1B[34m[5]\033[0m \x1B[36mNTFS Logs State\033[0m" << endl;
+    string input;
+    cin >> input;
+    int executed = -1;
+    try
+    {
+        int correctInput = stoi(input);
+        switch (correctInput)
+        {
+        case 0:
+            menu();
+            return;
+            break;
+        case 1:
+            executed = executePowerShell("Get-EventLog -LogName Security -InstanceId 4616");
+            break;
+        case 2:
+            executed = executePowerShell("Get-EventLog -LogName Security -InstanceId 1102");
+            break;
+        case 3:
+            executed = executePowerShell("Get-EventLog -LogName Application -InstanceId 3079");
+            break;
+        case 4:
+            executed = executePowerShell("Get-WinEvent Microsoft-Windows-Ntfs/Operational | findstr 501");
+            break;
+        case 5:
+            executed = executePowerShell("\"Get-WinEvent -ListLog Microsoft-Windows-Ntfs/Operational | Format-List *\" | findstr IsEnabled");
+            break;
+        default:
+            cout << "\x1B[34mErrore:\033[0m \x1B[36minserimento errato, seleziona un numero tra 0 e 5.\033[0m" << endl;
+        }
+        if (executed != 0)
+        {
+            system("CLS");
+            cout << "\x1B[36mNessun evento rilevato\033[0m" << endl;
+        }
+    }
+    catch (const exception &e)
+    {
+        cout << "\x1B[34mErrore:\033[0m \x1B[36mdevi inserire un numero intero\033[0m" << endl;
+        sleep(1);
+        registro();
+        return;
+    }
+    string c;
+    cout << "\x1B[34mPremere un tasto per continuare. . ." << endl;
+    ;
+    c = _getch();
+    menu();
+    return;
+}
+
+void record()
+{
+    system("CLS");
+    cout << "\x1B[34mRecording Finder\033[0m" << endl;
+    bool recordingSoftware = checkRecordingSoftware();
+    if (recordingSoftware)
+    {
+        findRecordingSoftware();
+    }
+    else
+    {
+        cout << "\x1B[34mSoftware Finder:\033[0m \x1B[36mNessun programma trovato\033[0m" << endl;
+    }
+    string c;
+    cout << "\x1B[34mPremere un tasto per continuare. . .\033[0m" << endl;
+    c = _getch();
+    menu();
+}
+
+void quit()
+{
+    string path = getMainPath();
+    if (folderExists(path))
+    {
+        string command = "rd /S /Q " + path;
+        int result = system(command.c_str());
+        if (result != 0)
+        {
+            command = "powershell.exe -Command \"Remove-Item -Path '" + path + "' -Recurse -Force\"";
+            system(command.c_str());
+        }
+    }
+    string c;
+    cout << "\x1B[34mArrivederci, premere un tasto per continuare. . .\033[0m" << endl;
+    c = _getch();
+    exit(0);
     return;
 }
 
@@ -279,6 +391,7 @@ void menu()
         switch (correctInput)
         {
         case 0:
+            quit();
             return;
         case 1:
             manuali();
@@ -294,13 +407,13 @@ void menu()
             break;
         case 5:
             registro();
-            break; /*
+            break;
         case 6:
             evtvwr();
             break;
         case 7:
             record();
-            break; */
+            break;
         case 8:
             bam();
             break;
@@ -349,6 +462,4 @@ int main()
     } while (pwok == false);
     createMainDirectory();
     menu();
-
     return 0;
-}

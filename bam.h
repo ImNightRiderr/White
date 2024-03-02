@@ -1,5 +1,6 @@
 #include "fileHandler.h"
 #include <fstream>
+#include <cstdio>
 
 void executeBam()
 {
@@ -144,8 +145,7 @@ void executeBam()
     {
         std::string command = "del /F ";
         command += path;
-        int result = system(command.c_str());
+        system(command.c_str());
     }
-    sleep(1);
     return;
 }

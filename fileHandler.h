@@ -55,7 +55,15 @@ void executeJournal(string journalCommand, string savedFile)
     cout << "\x1B[34mEseguendo l'operazione, potrebbero volerci alcuni secondi...\033[0m" << endl;
     system(command.c_str());
     cout << "\x1B[34mOperazione eseguita salvato il file in: " << programMainPath + "\\journal" + savedFile << "\033[0m" << endl;
-    sleep(4);
+}
+
+int executePowerShell(string powerShellCommand)
+{
+    ;
+    string command = "powershell -ExecutionPolicy Bypass -Command ";
+    command += powerShellCommand;
+    int result = system(command.c_str());
+    return result;
 }
 
 void downloadFile(string fileUrl, string fileName)
@@ -98,17 +106,26 @@ void macroSoftwareFinder()
         sleep(1);
         if (nuberFoundedPaths > 0)
         {
-            system("CLS");
-            cout << "\x1B[34mSeleziona un nunero per aprire la directory\033[0m" << endl;
-            cout << "\x1B[34m[0]\033[0m \x1B[36mindietro\033[0m" << endl;
-            for (int i = 1; i <= nuberFoundedPaths; i++)
-            {
-                cout << "\x1B[34m[" << i << "] \033[0m \x1B[36m" << foundedPaths[i - 1] << "\033[0m" << endl;
-            }
-            string input;
-            bool loop = false;
+            bool loop = true;
+            bool done = false;
             do
             {
+                if (done)
+                {
+                    string c;
+                    cout << "\x1B[34mPremere un tasto per continuare. . ." << endl;
+                    ;
+                    c = _getch();
+                    return;
+                }
+                system("CLS");
+                cout << "\x1B[34mSeleziona un nunero per aprire la directory\033[0m" << endl;
+                cout << "\x1B[34m[0]\033[0m \x1B[36mindietro\033[0m" << endl;
+                for (int i = 1; i <= nuberFoundedPaths; i++)
+                {
+                    cout << "\x1B[34m[" << i << "] \033[0m \x1B[36m" << foundedPaths[i - 1] << "\033[0m" << endl;
+                }
+                string input;
                 cin >> input;
                 try
                 {
@@ -117,15 +134,16 @@ void macroSoftwareFinder()
                     {
                         return;
                     }
-                    if (correctInput > 0 && correctInput < nuberFoundedPaths + 1)
+                    if (correctInput > 0 && correctInput <= nuberFoundedPaths)
                     {
+                        done = true;
                         string dir = foundedPaths[correctInput - 1];
                         HINSTANCE result = ShellExecute(nullptr, "open", dir.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
                         loop = true;
                     }
                     else
                     {
-                        cout << "\x1B[34mErrore:\033[0m \x1B[36mdevi inserire un numero tra 0 e" << nuberFoundedPaths + 1 << "\033[0m" << endl;
+                        cout << "\x1B[34mErrore:\033[0m \x1B[36mdevi inserire un numero tra 0 e " << nuberFoundedPaths << "\033[0m" << endl;
                         sleep(1);
                         loop = true;
                     }

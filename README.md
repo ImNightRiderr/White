@@ -15,7 +15,7 @@ Using this software you may have the option of downloading via direct link or vi
 *IF YOU DISAGREE WITH THESE POLICIES DO NOT DOWNLOAD OR USE THE SOFTWARE*
 
 
-*LICEBZA*
+*LICENZA*
 
 MIT (controlla la pagina LICENSE)
 

@@ -1,32 +1,119 @@
-*LICENCE*
+# White.exe – Minecraft Screenshare Tool
 
-MIT (check the LICENSE page)
+---
+## Documentazione legale 
 
-*TERM OF SERVICE*
+- **Leggi i [Termini di Servizio](./TERM_OF_SERVICE.md)** prima di usare il software. 
+- **Leggi la [Licenza](./LICENSE.md)** relativa al programma.  
+- **Consulta la [Privacy Policy](./PRIVACY_POLICY.md)** per i dettagli sulla gestione dei dati.
+## L’utilizzo di White.exe implica la piena accettazione di licenza e privacy policy e termini di servizio.
 
-By downloading this program you agree to the MIT license.
+----
 
-The creator of the software takes no responsibility for how this software may be used. 
+**White.exe**, Sviluppato da **NightRiderr_**, è uno strumento open‑source, gratuito e portatile pensato per le sessioni di **screenshare** durante i controlli anti‑cheat su **Minecraft**.  
 
-Using this software you may have the option of downloading via direct link or via popup window third-party software, if you use these features:
-- The creator of the software takes no responsibility for the third-party programs downloaded and how they could be used and/or third-party websites visited, does not own the rights to them, and is not affiliated with them.
-- By downloading and/or accessing via the above modes these programs and/or software you will be agreeing to the privacy policy and terms of service of these services (such as avenge.ac echo.ac paladin.ac github.com nirsoft.net voidtools.com) the user should check the privacy policy and terms of services. 
+---
 
-*IF YOU DISAGREE WITH THESE POLICIES DO NOT DOWNLOAD OR USE THE SOFTWARE*
+## Caratteristiche principali
+
+### Strumenti manuali
+Accesso a una raccolta di utility manuali esterni per analizzare direttamente il sistema.
+
+### Strumenti automatici
+Possibilità di scaricare e avviare automaticamente strumenti di scansione esterni progettati per l’analisi anti-cheat. Questi tool possono semplificare il controllo, riducendo i tempi di verifica.
+
+### Controllo dei percorsi Journal (Eventi recenti)
+Visualizza i percorsi legati ai file journal, i quali registrano l’attività utente e di sistema. Utile per rilevare operazioni recenti come esecuzioni o pulizie effettuate poco prima dello screenshare.
+
+### Percorsi macro noti
+Scansione rapida delle directory comunemente utilizzate da autoclicker o macro. Consente l’accesso diretto alle cartelle sospette per una verifica immediata.
+
+### Registro di sistema (Registry)
+Controlla chiavi note del registro di sistema associate a cheat client, esecuzioni di programmi sospetti o altro.
+
+### Visualizzatore eventi di Windows
+Avvio rapido dell'Event Viewer di Windows, utile per ispezionare eventi recenti del sistema.
+
+### Rilevamento software di registrazione/condivisione schermo
+Individua e segnala i processi attivi legati a programmi di registrazione video o condivisione schermo, come OBS, ShareX, Bandicam o Discord. Può opzionalmente terminare i processi per garantire una sessione di screenshare pulita.
+
+### BAM Analysis
+Esegue automaticamente la scansione della Background Activity Moderator (BAM).
+
+---
+
+##  Guida rapida all’uso
+
+1. Installazione  
+   – Scarica l’ultima release da [GitHub Releases](https://github.com/ImNightRiderr/White/releases).  
+   – Estrai il contenuto in una cartella a tua scelta.
+
+2. Esecuzione  
+   – Avvia `White.exe` con **tasti destro → “Esegui come amministratore”**.
+
+---
+
+***L’utilizzo di White.exe implica la piena accettazione di licenza e privacy policy e termini di servizio.***
 
 
-*LICENZA*
+# White.exe – Minecraft Screenshare Tool
 
-MIT (controlla la pagina LICENSE)
+---
 
-*TERMINI DI SERVIZIO*
+## Legal Notice
 
-Scaricando questo programma sei d'accordo con la licenza MIT
+- **Read the [Terms of Service](./TERM_OF_SERVICE.md)** before using this software.  
+- **Read the [License](./LICENSE.md)** for licensing details.  
+- **Read the [Privacy Policy](./PRIVACY_POLICY.md)** to understand how data is handled.
 
-Il developer del programma non si assume responsabilità di come questo software possa essere utilizzato.
+## By using White.exe, you agree to the Terms of Service, License, and Privacy Policy.
 
-Usando questo programma avrai l'ozione di scaricare tramite link diretto o tramite una finestra pop up dei software di terze parti, se scaricherai questi programmi:
-- Il developer del programma non si prende resposabilità per i software di terze parti e come potrebbero verire usati, e per i siti web visitati, non ne possiede i diritte e non è affiliato con loro.
-- Scariacndo o accedendo a questi programmi o siti web tramite i metodi spora citati aderisci alla loro privacy policy e ai loro termini di servizio (come avenge.ac echo.ac paladin.ac github.com nirsoft.net voidtools.com) l'utente è invitato a controllare la privacy policy e terms di servizio di questi programmi / siti web.
+---
 
-*SE NON SEI D'ACCORDO CON QUESTI TERMINI DI SEVIZIO NON SCARICARE O USARE IL SOFTWARE*
+**White.exe**, developed by **NightRiderr_**, is a free, open-source, portable tool designed specifically for **screenshare sessions** during anti-cheat inspections on **Minecraft**.
+
+---
+
+## Key Features
+
+### Manual Tools
+Access to a set of external manual utilities for in-depth system inspection.
+
+### Automatic Tools
+Ability to download and launch third-party anti-cheat scanning tools automatically. These tools help speed up inspections and reduce manual checks.
+
+### Journal Path Inspection (Recent Events)
+Displays paths related to journal files, which log recent system or user activity. Useful to detect recent executions or cleanups prior to a screenshare.
+
+### Known Macro Paths
+Quickly scans directories typically used by macro tools or autoclickers. Allows direct access to suspicious folders for manual inspection.
+
+### Registry Inspection
+Scans specific registry keys commonly linked to cheat clients, suspicious executables, or unwanted configurations.
+
+### Windows Event Viewer Access
+Launches the Windows Event Viewer for reviewing recent system events, crashes, or suspicious operations.
+
+### Screen Recording / Sharing Software Detection
+Detects and optionally terminates screen sharing and recording tools such as OBS, ShareX, Bandicam, and Discord to ensure a clean and transparent session.
+
+### BAM Analysis
+Automatically inspects the Background Activity Moderator (BAM) to identify recently run programs, including those no longer active.
+
+---
+
+## Quick Start Guide
+
+1. Installation  
+   – Download the latest release from [GitHub Releases](https://github.com/ImNightRiderr/White/releases).  
+   – Extract the contents to a folder of your choice.
+
+2. Execution  
+   – Right-click on `White.exe` and choose **“Run as administrator”** for full functionality.
+
+---
+
+***By using White.exe, you agree to the Terms of Service, License, and Privacy Policy.***
+
+*© 2024 – 2025 NightRiderr_*
+

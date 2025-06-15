@@ -181,14 +181,22 @@ void Menu::showBam() {
 }
 
 void Menu::showError(const std::string& message) {
-    std::cout << Config::COLOR_ERROR << "Error:" << Config::COLOR_RESET << Config::COLOR_CYAN << " " << message << Config::COLOR_RESET << std::endl;
-    pause();
+    std::cout << Config::COLOR_ERROR << Language::Current::ERR << Config::COLOR_RESET << Config::COLOR_CYAN << " " << message << Config::COLOR_RESET << std::endl;
+    Sleep(2000);
+    system("CLS"); 
+    showMainMenu();
 }
 
 void Menu::quit() {
-    tools.cleanMainDirectory();
+    std::cout << Config::COLOR_BLUE << Language::Current::ELIMINATION_CONFIRM_QST << Config::COLOR_RESET;
+    std::string risposta;
+    std::getline(std::cin, risposta);
+    if (!risposta.empty() && (risposta[0] == 'y' || risposta[0] == 'Y')) {
+        tools.cleanMainDirectory();
+        std::cout << Config::COLOR_CYAN << Language::Current::ELIMINATION_COMPLETE << Config::COLOR_RESET << std::endl;
+    }
     std::cout << Config::COLOR_BLUE << Language::Current::GOODBYE << Config::COLOR_RESET << std::endl;
-    _getch();
+    Sleep(1500);
     running = false;
 }
 

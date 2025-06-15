@@ -62,6 +62,8 @@ namespace Language {
             " - Eseguire controlli approfonditi durante lo screenshare\n\n"
             "Per favore, riavvia il programma e concedi i permessi di amministratore.";
 
+        static constexpr const char* ELIMINATION_CONFIRM_QST = "Vuoi eliminare i tutti file presennti sulla cartella \\Download\\White e la cartella stessa? (y/n):"
+        static constexpr const char* ELIMINATION_COMPLETE = "Tutti i file nella cartella 'White' sono stati eliminati.";
         static constexpr const char* OPERATION_CANCELLED = "\nOperazione annullata. Il programma non verr\205 avviato.";
         static constexpr const char* PRESS_KEY = "Premi un tasto per continuare...";
         static constexpr const char* INVALID_INPUT = "Errore: inserimento errato, seleziona un numero tra ";
@@ -90,6 +92,8 @@ namespace Language {
         static constexpr const char* EVENT_VIEWER_LOADING = "Analizzando l'Event Viewer, attendi";
         static constexpr const char* INVALID_COMMAND_ID = "ID comando non valido.";
         static constexpr const char* AND  = "e";
+        static constexpr const char* DIRECTORY_CREATED = "Cartella creata con successo.";
+        static constexpr const char* ERR_CREATE_DIR = "Impossibile creare la cartella.";
     };
 }
 #endif
@@ -139,6 +143,8 @@ namespace Language {
             " - Perform thorough checks during screensharing\n\n"
             "Please restart the program and grant administrator permissions.";
 
+        static constexpr const char* ELIMINATION_CONFIRM_QST = "Do you want to delete all files in the \\Downloads\\White folder and the folder itself? (y/n):";
+        static constexpr const char* ELIMINATION_COMPLETE = "All files in the 'White' folder have been deleted.";
         static constexpr const char* OPERATION_CANCELLED = "\nOperation cancelled. The program will not start.";
         static constexpr const char* PRESS_KEY = "Press any key to continue...";
         static constexpr const char* INVALID_INPUT = "Error: invalid input, select a number between ";
@@ -167,6 +173,8 @@ namespace Language {
         static constexpr const char* EVENT_VIEWER_LOADING = "Analyzing Event Viewer, please wait";
         static constexpr const char* INVALID_COMMAND_ID = "Invalid command ID.";
         static constexpr const char* AND  = "and";
+        static constexpr const char* DIRECTORY_CREATED = "Directory created successfully.";
+        static constexpr const char* ERR_CREATE_DIR = "Error creating directory.";
     
        
     };

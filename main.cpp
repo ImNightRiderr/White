@@ -44,11 +44,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             return 0;
         }
 
-        // Dopo il messaggio di benvenuto, controlla i permessi
         if (!SecurityManager::isElevated()) {
-            // Tenta di elevare i permessi
             if (!SecurityManager::elevateProcess("--skip-welcome")) {
-                // Mostra errore se l'elevazione fallisce
                 system("CLS");
                 std::cout << Config::COLOR_ERROR << Language::Current::ADMIN_RIGHTS_ERROR << Config::COLOR_RESET << std::endl;
                 Sleep(5000);
@@ -65,7 +62,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         }
     }
 
-    // Continua solo se ha i permessi
     FileSystem::createMainDirectory();
     Menu menu;
     menu.show();

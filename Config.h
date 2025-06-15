@@ -1,4 +1,3 @@
-
 /*
 
                 ############# White.exe V2.0 #############
@@ -25,14 +24,9 @@ namespace Config {
     const std::string AUTHOR = " By: NightRiderr_"; // Non rimuovere questa riga, per usare il programma devi mantenere l'autore (NightRiderr_) come da licenza. Don't remove this line, to use the program you must keep the author (NightRiderr_) as license.
     const std::string VERSION = "Beta 1.9 ";
     const std::string COPYRIGHT = " - Copyright (c) 2025";
-    const std::string BASE_PATH = []() {
-        char path[MAX_PATH];
-        SHGetFolderPathA(nullptr, CSIDL_PROFILE, nullptr, 0, path);
-        return std::string(path) + "\\Downloads\\White";
-    }();
-    const std::string TOOLS_PATH = BASE_PATH + "\\tools";
-    const std::string JOURNAL_PATH = BASE_PATH + "\\journal";
-
+    static std::string BASE_PATH;
+    static std::string TOOLS_PATH;
+    static std::string JOURNAL_PATH;
     const std::string BAM_SCRIPT = R"###(
 $ErrorActionPreference = "SilentlyContinue"
 
@@ -178,4 +172,4 @@ $t = $sw.Elapsed.TotalMinutes
         "https://github.com/winsiderss/systeminformer/releases/download/v3.2.25011.2103/systeminformer-3.2.25011-release-bin.zip",
         "processhacker(systeminformer).zip"
     };
-} 
+}

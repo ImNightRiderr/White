@@ -92,9 +92,34 @@ public:
     }
 
     static void createMainDirectory() {
-        createDirectory(Config::BASE_PATH);
-        createDirectory(Config::TOOLS_PATH);
-        createDirectory(Config::JOURNAL_PATH);
+        std::string basePath = Config::BASE_PATH;
+        std::string originalPath = basePath;
+        int counter = 1;
+
+        while (directoryExists(basePath)) {
+            basePath = originalPath + std::to_string(counter);
+            counter++;
+        }
+
+        if (basePath != originalPath) {
+            Config::BASE_PATH = basePath;
+            Config::TOOLS_PATH = basePath + "\\Tools";
+            Config::JOURNAL_PATH = basePath + "\\Journal";
+        }
+
+        if (createDirectory(Config::BASE_PATH)) {
+            createDirectory(Config::TOOLS_PATH);
+            createDirectory(Config::JOURNAL_PATH);
+            std::cout << Config::COLOR_CYAN << Language::Current::DIRECTORY_CREATED << ": " 
+                      << Config::BASE_PATH << Config::COLOR_RESET << std::endl;
+            Sleep(1500);
+            system("CLS");
+        } else {
+            std::cout << Config::COLOR_ERROR << Language::Current::ERR_CREATE_DIR 
+                      << Config::COLOR_RESET << std::endl;
+            Sleep(1500);
+            system("CLS");
+        }
     }
 
     static void openRegedit(const std::string& path) {
@@ -111,7 +136,6 @@ public:
         else if ((pos = regPath.find("HKEY_USERS")) != std::string::npos)
             regPath.replace(pos, 10, "HKU");
 
-        // Comando per aprire regedit direttamente alla chiave specificata
         std::string command = "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Applets\\Regedit\" /v \"LastKey\" /t REG_SZ /d \"" + regPath + "\" /f >nul 2>&1";
         system(command.c_str());
         system("start regedit");

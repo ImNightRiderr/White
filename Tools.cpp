@@ -1,4 +1,3 @@
-
 /* 
 
                 ############# White.exe V2.0 #############
@@ -26,7 +25,7 @@
 
 void Tools::downloadManualTool(int toolId) {
     try {
-        showLoadingAnimation(Language::Current::DOWNLOADING, 15000);
+        auto loading = LoadingAnimation::start(Language::Current::DOWNLOADING);
         switch (toolId) {
             case 1:  FileSystem::downloadFile(Config::PROCESS_HACKER.url, Config::PROCESS_HACKER.filename); break; 
             case 2:  FileSystem::downloadFile("https://www.nirsoft.net/utils/lastactivityview.zip", "lastactivityview.zip"); break; 
@@ -51,6 +50,7 @@ void Tools::downloadManualTool(int toolId) {
             case 21: FileSystem::downloadFile("https://www.nirsoft.net/utils/muicacheview.zip", "muicacheview.zip"); break;
             case 22: FileSystem::downloadFile("https://www.nirsoft.net/utils/regdllview-x64.zip", "regdllview-x64.zip"); break; 
         }
+        loading.reset();
     } catch (const std::exception& e) {
         std::cerr << Config::COLOR_ERROR << Language::Current::ERR << " " << e.what() 
                   << Config::COLOR_RESET << std::endl;
@@ -171,16 +171,16 @@ void Tools::executeRegistryCommand(int commandId) {
             FileSystem::openRegedit("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\bam\\State\\UserSettings");
             break;
         case 6: 
-            FileSystem::openRegedit("HKEY_USERS\\S-1-5-21-3588730549-3518937415-2257010710-1001\\SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\Shell\\MuiCache");
+            FileSystem::openRegedit("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\Shell\\MuiCache");
             break;
         case 7: 
-            FileSystem::openRegedit("HKEY_LOCAL_MACHINE\\SYSTEM\\ControlSet001\\Enum\\USB");
+            FileSystem::openRegedit("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Enum\\USB");
             break;
         case 8: 
             FileSystem::openRegedit("HKEY_CURRENT_USER\\Software\\Microsoft\\DirectInput\\MostRecentApplication");
             break;
         case 9: 
-            FileSystem::openRegedit("HKEY_CLASSES_ROOT\\LocalSettings\\Software\\Microsoft\\Windows\\Shell\\MuiChace");
+            FileSystem::openRegedit("HKEY_CLASSES_ROOT\\LocalSettings\\Software\\Microsoft\\Windows\\Shell\\MuiCache");
             break;
         case 10: 
             FileSystem::openRegedit("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\OpenSavePidlMRU\\*");
@@ -198,32 +198,62 @@ void Tools::executeRegistryCommand(int commandId) {
             FileSystem::openRegedit("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32");
             break;
         case 15: 
-            FileSystem::openRegedit("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\OpenSavePidlMRU");
-            break;
-        default:
+            FileSystem::openRegedit("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\OpenSavePidlMRU");
             break;
     }
 }
 
 void Tools::executeEventViewerCommand(int commandId) {
-    showLoadingAnimation(Language::Current::EVENT_VIEWER_LOADING, 15000);
-    int executed = -1;
+    system("CLS");
+    auto loading = LoadingAnimation::start(Language::Current::EVENT_VIEWER_LOADING);
+
+    std::string command = "powershell -NoProfile -NonInteractive -Command \"";
     switch (commandId) {
-        case 1: executed = FileSystem::executePowerShell("Get-EventLog -LogName Security -InstanceId 4616"); break;
-        case 2: executed = FileSystem::executePowerShell("Get-EventLog -LogName Security -InstanceId 1102"); break;
-        case 3: executed = FileSystem::executePowerShell("Get-EventLog -LogName Application -InstanceId 3079"); break;
-        case 4: executed = FileSystem::executePowerShell("Get-WinEvent Microsoft-Windows-Ntfs/Operational | findstr 501"); break;
-        case 5: executed = FileSystem::executePowerShell("\"Get-WinEvent -ListLog Microsoft-Windows-Ntfs/Operational | Format-List *\" | findstr IsEnabled"); break;
+        case 1:
+            command += "$ErrorActionPreference = 'SilentlyContinue'; Get-WinEvent -FilterHashtable @{LogName='Security';ID=4616} -MaxEvents 5";
+            break;
+        case 2:
+            command += "$ErrorActionPreference = 'SilentlyContinue'; Get-WinEvent -FilterHashtable @{LogName='Security';ID=1102} -MaxEvents 5";
+            break;
+        case 3:
+            command += "$ErrorActionPreference = 'SilentlyContinue'; Get-WinEvent -FilterHashtable @{LogName='Application';ID=3079} -MaxEvents 5";
+            break;
+        case 4:
+            command += "$ErrorActionPreference = 'SilentlyContinue'; Get-WinEvent -LogName 'Microsoft-Windows-Ntfs/Operational' -FilterXPath '*[System[EventID=501]]' -MaxEvents 5";
+            break;
+        case 5:
+            command += "$ErrorActionPreference = 'SilentlyContinue'; Get-WinEvent -ListLog 'Microsoft-Windows-Ntfs/Operational' | Select-Object IsEnabled";
+            break;
+        default:
+            loading.reset();
+            std::cout << Config::COLOR_ERROR << Language::Current::INVALID_COMMAND_ID << Config::COLOR_RESET << std::endl;
+            return;
     }
-    if (executed != 0) {
-        system("CLS");
-        std::cout << "\x1B[36m" << Language::Current::NO_EVENTS_FOUND << "\033[0m" << std::endl;
+    command += " | Format-Table -AutoSize; exit $LASTEXITCODE\" 2>nul";
+
+    loading.reset();
+    system("CLS");
+    
+    FILE* pipe = _popen(command.c_str(), "r");
+    if (pipe) {
+        char buffer[128];
+        std::string result;
+        while (fgets(buffer, sizeof(buffer), pipe) != nullptr) {
+            result += buffer;
+        }
+        _pclose(pipe);
+        
+        if (result.empty() || result.find("No events found") != std::string::npos) {
+            std::cout << Config::COLOR_CYAN << Language::Current::NO_EVENTS_FOUND << Config::COLOR_RESET << std::endl;
+        } else {
+            std::cout << Config::COLOR_CYAN << result << Config::COLOR_RESET;
+        }
     }
 }
 
 void Tools::executeBamAnalysis() {
     system("CLS");
-    showLoadingAnimation(Language::Current::BAM_SEARCHING, 15000);
+    auto loading = LoadingAnimation::start(Language::Current::BAM_SEARCHING);
     std::string scriptPath = Config::BASE_PATH + "\\script.ps1";
     std::ofstream file(scriptPath);
     if (!file.is_open()) {
@@ -253,7 +283,7 @@ void Tools::executeBamAnalysis() {
 }
 
 void Tools::macroSoftwareFinder() {
-    showLoadingAnimation(Language::Current::SEARCHING, 15000);
+    auto loading = LoadingAnimation::start(Language::Current::SEARCHING);
 
     std::vector<std::string> foundPaths;
     std::string userFolder = FileSystem::getUserDirectory();

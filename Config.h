@@ -21,9 +21,10 @@ namespace Config {
     const std::string COLOR_ERROR = "\x1B[31m";
     const std::string COLOR_RESET = "\033[0m";
 
-    const std::string AUTHOR = "NightRiderr_"; // Non rimuovere questa riga, per usare il programma devi mantenere l'autore (NightRiderr_) come da licenza. Don't remove this line, to use the program you must keep the author (NightRiderr_) as license.
-    const std::string COPYRIGHT = " | Copyright 2025";
-
+    const std::string TITLE = "White.exe - ";
+    const std::string AUTHOR = " By: NightRiderr_"; // Non rimuovere questa riga, per usare il programma devi mantenere l'autore (NightRiderr_) come da licenza. Don't remove this line, to use the program you must keep the author (NightRiderr_) as license.
+    const std::string VERSION = "Beta 1.9 ";
+    const std::string COPYRIGHT = " - Copyright (c) 2025";
     const std::string BASE_PATH = []() {
         char path[MAX_PATH];
         SHGetFolderPathA(nullptr, CSIDL_PROFILE, nullptr, 0, path);

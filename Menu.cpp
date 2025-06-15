@@ -40,7 +40,7 @@ void Menu::show() {
 
 void Menu::showMainMenu() {
     clearScreen(); //                                                        \/ Non rimuovere questa riga, per usare il programma devi mantenere l'autore (NightRiderr_) come da licenza. Don't remove this line, to use the program you must keep the author (NightRiderr_) as license.
-    std::cout << Config::COLOR_BLUE << Language::Current::TITLE << Config::AUTHOR << Language::Current::SUBTITLE << Config::COLOR_RESET << std::endl << std::endl;
+    std::cout << Config::COLOR_BLUE << Config::TITLE << Config::VERSION << Config::AUTHOR << Config::COPYRIGHT << Config::COLOR_RESET << std::endl << std::endl;
     std::cout << Config::COLOR_BLUE << Language::Current::CHOOSE_OPERATION << Config::COLOR_RESET << std::endl;
     std::cout << Config::COLOR_BLUE << "[0]" << Config::COLOR_RESET << Config::COLOR_CYAN << " " << Language::Current::QUIT << Config::COLOR_RESET << std::endl;
     std::cout << Config::COLOR_BLUE << "[1]" << Config::COLOR_RESET << Config::COLOR_CYAN << " " << Language::Current::MANUAL_TOOLS << Config::COLOR_RESET << std::endl;

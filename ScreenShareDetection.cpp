@@ -57,7 +57,7 @@ bool ScreenShareDetection::checkRecordingSoftware() {
     bool foundAny = false;
     std::vector<std::string> foundSoftware;
 
-    showLoadingAnimation(Language::Current::SEARCHING, 15000); 
+    showLoadingAnimation(Language::Current::SEARCHING, 999999); 
 
     auto softwareList = getRecordingSoftwareList();
     for(const auto& software : softwareList) {
@@ -231,7 +231,7 @@ void ScreenShareDetection::handleRecordingSoftwareTermination(const std::vector<
         try {
             int choice = std::stoi(input);
             if (choice > 0 && choice <= static_cast<int>(foundSoftware.size())) {
-                showLoadingAnimation(Language::Current::TERMINATING_PROCESS, 15000); 
+                showLoadingAnimation(Language::Current::TERMINATING_PROCESS, 999999); 
                 killProcess(foundSoftware[choice-1]);
                 std::cout << Config::COLOR_BLUE << Language::Current::PROCESS_TERMINATED << ": " << Config::COLOR_CYAN
                           << foundSoftware[choice-1] << Config::COLOR_RESET << std::endl;

@@ -20,8 +20,6 @@
 #ifdef APP_LANG_ITALIAN
 namespace Language {
     struct Current {
-        static constexpr const char* TITLE = "White.exe V2.0 By: ";
-        static constexpr const char* SUBTITLE = " | Copyright 2025";
         static constexpr const char* CHOOSE_OPERATION = "Scegli l'operazione:";
         static constexpr const char* QUIT = "Esci";
         static constexpr const char* MANUAL_TOOLS = "Tool Manuali";
@@ -99,8 +97,6 @@ namespace Language {
 #ifdef APP_LANG_ENGLISH
 namespace Language {
     struct Current {
-        static constexpr const char* TITLE = "White.exe V2.0 By: ";
-        static constexpr const char* SUBTITLE = " | Copyright 2025";
         static constexpr const char* CHOOSE_OPERATION = "Choose operation:";
         static constexpr const char* QUIT = "Quit";
         static constexpr const char* MANUAL_TOOLS = "Manual Tools";

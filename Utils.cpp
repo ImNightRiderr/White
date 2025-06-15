@@ -1,4 +1,3 @@
-
 /* 
 
                 ############# White.exe V2.0 #############
@@ -15,18 +14,39 @@
 #include "Config.h"
 #include <iostream>
 #include <windows.h>
+#include <thread>
 
-void showLoadingAnimation(const std::string& message, int duration) {
+LoadingAnimation::LoadingAnimation(const std::string& msg) : message(msg) {
+    animationThread = std::thread(&LoadingAnimation::run, this);
+}
+
+LoadingAnimation::~LoadingAnimation() {
+    running = false;
+    if (animationThread.joinable()) {
+        animationThread.join();
+    }
+    std::cout << "\r" << std::string(message.length() + 4, ' ') << "\r" << std::flush;
+    system("CLS");  // Add CLS when animation ends
+}
+
+void LoadingAnimation::run() {
     const char sequence[] = {'|', '/', '-', '\\'};
     int count = 0;
-    int iterations = duration / 100;  
-
-    for (int i = 0; i < iterations; i++) {
+    
+    while (running) {
         std::cout << "\r" << Config::COLOR_BLUE << message << " "
                   << Config::COLOR_CYAN << sequence[count % 4]
                   << Config::COLOR_RESET << std::flush;
-        Sleep(100);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
         count++;
     }
-    std::cout << "\r" << std::string(message.length() + 4, ' ') << "\r";
+}
+
+std::unique_ptr<LoadingAnimation> LoadingAnimation::start(const std::string& message) {
+    return std::unique_ptr<LoadingAnimation>(new LoadingAnimation(message));
+}
+
+void showLoadingAnimation(const std::string& message, int duration) {
+    auto animation = LoadingAnimation::start(message);
+    Sleep(duration);
 }

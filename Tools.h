@@ -33,6 +33,5 @@ public:
 private:
     void handleMacroPathsSelection(const std::vector<std::string>& foundPaths);
     std::vector<std::string> getScreenSharingProcesses();
-    void showLoadingAnimation(const std::string& message, int duration);
     bool isProcessRunning(const std::string& processName);
 };

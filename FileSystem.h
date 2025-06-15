@@ -1,4 +1,3 @@
-
 /*
 
                 ############# White.exe V2.0 #############
@@ -16,6 +15,7 @@
 #include <string>
 #include <shlobj.h>
 #include <iostream>
+#include <fstream>
 #include "Config.h"
 #include "Language.h"
 #include "Utils.h"
@@ -62,6 +62,9 @@ public:
             std::cerr << Config::COLOR_ERROR << Language::Current::ERR << " URL: " << url << Config::COLOR_RESET << std::endl;
             return;
         }
+        
+        auto loading = LoadingAnimation::start(Language::Current::DOWNLOADING);
+        
         std::string destPath = Config::TOOLS_PATH;
         std::string fullPath = destPath + "\\" + fileName;
         
@@ -70,6 +73,8 @@ public:
         command += "-OutFile '" + fullPath + "'\"";
         system(command.c_str());
         
+        loading.reset();
+        
         std::cout << Config::COLOR_BLUE << Language::Current::FOUND_SOFTWARE << Config::COLOR_CYAN << fullPath << Config::COLOR_RESET << std::endl;
     }
 
@@ -77,7 +82,7 @@ public:
         std::string fullPath = Config::JOURNAL_PATH + savedFile;
         std::string fullCommand = command + fullPath;
         
-        showLoadingAnimation(Language::Current::JOURNAL_LOADING, 15000);
+        showLoadingAnimation(Language::Current::JOURNAL_LOADING, 999999);
         system(fullCommand.c_str());
         std::cout << Config::COLOR_BLUE << Language::Current::DOWNLOADING
                   << Config::COLOR_RESET << std::endl;
@@ -93,9 +98,24 @@ public:
     }
 
     static void openRegedit(const std::string& path) {
-        showLoadingAnimation(Language::Current::REGISTRY_OPENING, 15000);
-        std::string command = "reg add " + path;
+        auto loading = LoadingAnimation::start(Language::Current::DOWNLOADING);
+        
+        std::string regPath = path;
+        size_t pos;
+        if ((pos = regPath.find("HKEY_LOCAL_MACHINE")) != std::string::npos)
+            regPath.replace(pos, 17, "HKLM");
+        else if ((pos = regPath.find("HKEY_CURRENT_USER")) != std::string::npos)
+            regPath.replace(pos, 17, "HKCU");
+        else if ((pos = regPath.find("HKEY_CLASSES_ROOT")) != std::string::npos)
+            regPath.replace(pos, 17, "HKCR");
+        else if ((pos = regPath.find("HKEY_USERS")) != std::string::npos)
+            regPath.replace(pos, 10, "HKU");
+
+        // Comando per aprire regedit direttamente alla chiave specificata
+        std::string command = "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Applets\\Regedit\" /v \"LastKey\" /t REG_SZ /d \"" + regPath + "\" /f >nul 2>&1";
         system(command.c_str());
-        system("regedit");
+        system("start regedit");
+        
+        loading.reset();
     }
-}; 
+};

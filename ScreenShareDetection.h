@@ -1,4 +1,3 @@
-
 /*
 
                 ############# White.exe V2.0 #############
@@ -9,7 +8,7 @@
 
                 ##########################################
 
-*/
+*/ 
 
 #pragma once
 #include <string>
@@ -28,5 +27,4 @@ private:
     bool isProcessRunning(const std::string& processName);
     void killProcess(const std::string& processName);
     void handleRecordingSoftwareTermination(const std::vector<std::string>& foundSoftware);
-    void showLoadingAnimation(const std::string& message, int duration);
 };

@@ -16,17 +16,14 @@
 #include <shlobj.h>
 
 namespace Config {
-    // Colori ANSI
     const std::string COLOR_BLUE = "\x1B[34m";
     const std::string COLOR_CYAN = "\x1B[36m";
     const std::string COLOR_ERROR = "\x1B[31m";
     const std::string COLOR_RESET = "\033[0m";
 
-    // Autore
     const std::string AUTHOR = "NightRiderr_"; // Non rimuovere questa riga, per usare il programma devi mantenere l'autore (NightRiderr_) come da licenza. Don't remove this line, to use the program you must keep the author (NightRiderr_) as license.
     const std::string COPYRIGHT = " | Copyright 2025";
 
-    // Percorsi
     const std::string BASE_PATH = []() {
         char path[MAX_PATH];
         SHGetFolderPathA(nullptr, CSIDL_PROFILE, nullptr, 0, path);
@@ -35,7 +32,6 @@ namespace Config {
     const std::string TOOLS_PATH = BASE_PATH + "\\tools";
     const std::string JOURNAL_PATH = BASE_PATH + "\\journal";
 
-    // Script BAM (PowerShell)
     const std::string BAM_SCRIPT = R"###(
 $ErrorActionPreference = "SilentlyContinue"
 
@@ -181,4 +177,4 @@ $t = $sw.Elapsed.TotalMinutes
         "https://github.com/winsiderss/systeminformer/releases/download/v3.2.25011.2103/systeminformer-3.2.25011-release-bin.zip",
         "processhacker(systeminformer).zip"
     };
-}
+} 

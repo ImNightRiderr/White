@@ -97,4 +97,4 @@ public:
         system(command.c_str());
         system("regedit");
     }
-};
+}; 

@@ -1,4 +1,3 @@
-
 /*
 
                 ############# White.exe V2.0 #############
@@ -13,7 +12,8 @@
 
 #include "ScreenShareDetection.h"
 #include "Config.h"
-#include "Language.h" // <--- AGGIUNGI QUESTA RIGA
+#include "Utils.h"
+#include "Language.h" 
 #include <windows.h>
 #include <psapi.h>
 #include <tlhelp32.h>
@@ -21,7 +21,7 @@
 #include <conio.h>
 #include <algorithm>
 
-// --- SUPPORTO: EnumWindows universale per browser sharing ---
+
 BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam) {
     char title[512];
     DWORD pid;
@@ -58,9 +58,8 @@ bool ScreenShareDetection::checkRecordingSoftware() {
     bool foundAny = false;
     std::vector<std::string> foundSoftware;
 
-    showLoadingAnimation(Language::Current::SEARCHING, 9000);
+    showLoadingAnimation(Language::Current::SEARCHING, 9000); 
 
-    // Controllo software di registrazione
     auto softwareList = getRecordingSoftwareList();
     for(const auto& software : softwareList) {
         if(isProcessRunning(software.processName)) {
@@ -71,7 +70,6 @@ bool ScreenShareDetection::checkRecordingSoftware() {
         }
     }
 
-    // Ricerca universale finestre con titoli di condivisione schermo (solo browser noti)
     std::vector<std::string> foundSharingBrowsers;
     EnumWindows(EnumWindowsProc, reinterpret_cast<LPARAM>(&foundSharingBrowsers));
     std::vector<std::string> browserProcesses = {
@@ -88,7 +86,6 @@ bool ScreenShareDetection::checkRecordingSoftware() {
         }
     }
 
-    // Controllo servizi di desktop remoto e simili
     std::vector<std::string> remoteServices = {
         "TeamViewer_Service.exe", "sshd.exe", "vncserver.exe", "winvnc.exe",
         "tv_w32.exe", "atrc.exe", "rundll32.exe", "msra.exe", "remotepg.exe"
@@ -227,34 +224,18 @@ void ScreenShareDetection::handleRecordingSoftwareTermination(const std::vector<
         try {
             int choice = std::stoi(input);
             if (choice > 0 && choice <= static_cast<int>(foundSoftware.size())) {
-                showLoadingAnimation(Language::Current::TERMINATING_PROCESS, 1000);
+                showLoadingAnimation(Language::Current::TERMINATING_PROCESS, 1000); 
                 killProcess(foundSoftware[choice-1]);
                 std::cout << Config::COLOR_BLUE << Language::Current::PROCESS_TERMINATED << ": " << Config::COLOR_CYAN
                           << foundSoftware[choice-1] << Config::COLOR_RESET << std::endl;
                 return;
             }
         } catch (...) {
-            // Ignora errori di input e ripresenta il menu
+        // pass
         }
     }
 }
 
-void ScreenShareDetection::showLoadingAnimation(const std::string& message, int duration) {
-    const char sequence[] = {'|', '/', '-', '\\'};
-    int count = 0;
-    int iterations = duration / 100;  // 100ms per frame
-
-    for (int i = 0; i < iterations; i++) {
-        std::cout << "\r" << Config::COLOR_BLUE << message << " "
-                  << Config::COLOR_CYAN << sequence[count % 4]
-                  << Config::COLOR_RESET << std::flush;
-        Sleep(100);
-        count++;
-    }
-    std::cout << "\r" << std::string(message.length() + 4, ' ') << "\r";
-}
-
-// --- Definizione della lista keywords ---
 const std::vector<std::string> ScreenShareDetection::keywords = {
     // Italiano
     "condividendo il tuo schermo", "condivisione schermo", "sta condividendo il tuo schermo",
@@ -306,7 +287,7 @@ const std::vector<std::string> ScreenShareDetection::keywords = {
     "estás presentando", "está presentando", "pantalla activa", "ventana activa",
     "compartiendo contenido", "compartiendo presentación", "compartición en corso",
 
-    // Portoghese
+    // Portoghese 
     "compartilhando tela", "está compartilhando sua tela", "compartilhar tela",
     "você está compartilhando sua tela", "tela compartilhada", "compartilhando a tela",
     "compartilhando uma janela", "compartilhar uma janela", "janela compartilhada", "está compartilhando uma janela",

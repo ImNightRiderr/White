@@ -26,31 +26,30 @@
 
 void Tools::downloadManualTool(int toolId) {
     try {
-        showLoadingAnimation(Language::Current::DOWNLOADING, 2000);
+        showLoadingAnimation(Language::Current::DOWNLOADING, 15000);
         switch (toolId) {
-            // --- Process/Memory/Handle Tools ---
-            case 1:  FileSystem::downloadFile(Config::PROCESS_HACKER.url, Config::PROCESS_HACKER.filename); break; // Process Hacker
-            case 2:  FileSystem::downloadFile("https://www.nirsoft.net/utils/lastactivityview.zip", "lastactivityview.zip"); break; // LastActivityView
-            case 3:  FileSystem::downloadFile("https://www.nirsoft.net/utils/winprefetchview-x64.zip", "winprefetchview-x64.zip"); break; // WinPrefetchView
-            case 4:  FileSystem::downloadFile("https://github.com/deathmarine/Luyten/releases/download/v0.5.4_Rebuilt_with_Latest_depenencies/luyten-0.5.4.exe", "luyten.exe"); break; // Luyten
-            case 5:  FileSystem::downloadFile("https://www.voidtools.com/Everything-1.4.1.1027.x64.zip", "Everything-x64.zip"); break; // Everything
-            case 6:  FileSystem::downloadFile("https://www.nirsoft.net/utils/alternatestreamview-x64.zip", "alternatestreamview-x64.zip"); break; // AlternateStreamView
-            case 7:  FileSystem::downloadFile("https://www.nirsoft.net/utils/previousfilesrecovery-x64.zip", "previousfilesrecovery-x64.zip"); break; // PreviousFilesRecovery
-            case 8:  FileSystem::downloadFile("https://www.nirsoft.net/utils/regscanner-x64.zip", "regscanner-x64.zip"); break; // RegScanner
-            case 9:  FileSystem::downloadFile("https://www.nirsoft.net/utils/usbdeview-x64.zip", "usbdeview-x64.zip"); break; // USBDeview
-            case 10: FileSystem::downloadFile("https://www.nirsoft.net/utils/loadeddllsview-x64.zip", "loadeddllsview-x64.zip"); break; // LoadedDLLsView
-            case 11: FileSystem::downloadFile("https://www.nirsoft.net/utils/processactivityview-x64.zip", "processactivityview-x64.zip"); break; // ProcessActivityView
-            case 12: FileSystem::downloadFile("https://www.nirsoft.net/utils/executedprogramslist.zip", "executedprogramslist-x64.zip"); break; // ExecutedProgramsList
-            case 13: FileSystem::downloadFile("https://www.nirsoft.net/utils/browserdownloadsview-x64.zip", "browserdownloadsview.zip"); break; // BrowserDownloadsView
-            case 14: FileSystem::downloadFile("https://www.nirsoft.net/utils/browsinghistoryview-x64.zip", "browserhistoryview.zip"); break; // BrowsingHistoryView
-            case 15: FileSystem::downloadFile("https://www.nirsoft.net/utils/shellbagsview.zip", "shellbagsview.zip"); break; // ShellBagsView
-            case 16: FileSystem::downloadFile("https://www.nirsoft.net/utils/userassistview.zip", "userassistview.zip"); break; // UserAssistView
-            case 17: FileSystem::downloadFile("https://www.nirsoft.net/utils/myeventviewer-x64.zip", "myeventviewer-x64.zip"); break; // MyEventViewer
-            case 18: FileSystem::downloadFile("https://www.nirsoft.net/utils/injecteddll.zip", "injecteddll.zip"); break; // InjectedDLL
-            case 19: FileSystem::downloadFile("https://www.nirsoft.net/utils/ofview-x64.zip", "OpenedFilesView-x64.zip"); break; // OpenedFilesView
-            case 20: FileSystem::downloadFile("https://www.nirsoft.net/utils/recentfilesview.zip", "recentfileview.zip"); break; // RecentFilesView
-            case 21: FileSystem::downloadFile("https://www.nirsoft.net/utils/muicacheview.zip", "muicacheview.zip"); break; // MUICacheView
-            case 22: FileSystem::downloadFile("https://www.nirsoft.net/utils/regdllview-x64.zip", "regdllview-x64.zip"); break; // RegDllView
+            case 1:  FileSystem::downloadFile(Config::PROCESS_HACKER.url, Config::PROCESS_HACKER.filename); break; 
+            case 2:  FileSystem::downloadFile("https://www.nirsoft.net/utils/lastactivityview.zip", "lastactivityview.zip"); break; 
+            case 3:  FileSystem::downloadFile("https://www.nirsoft.net/utils/winprefetchview-x64.zip", "winprefetchview-x64.zip"); break; 
+            case 4:  FileSystem::downloadFile("https://github.com/deathmarine/Luyten/releases/download/v0.5.4_Rebuilt_with_Latest_depenencies/luyten-0.5.4.exe", "luyten.exe"); break;
+            case 5:  FileSystem::downloadFile("https://www.voidtools.com/Everything-1.4.1.1027.x64.zip", "Everything-x64.zip"); break;
+            case 6:  FileSystem::downloadFile("https://www.nirsoft.net/utils/alternatestreamview-x64.zip", "alternatestreamview-x64.zip"); break; 
+            case 7:  FileSystem::downloadFile("https://www.nirsoft.net/utils/previousfilesrecovery-x64.zip", "previousfilesrecovery-x64.zip"); break; 
+            case 8:  FileSystem::downloadFile("https://www.nirsoft.net/utils/regscanner-x64.zip", "regscanner-x64.zip"); break;
+            case 9:  FileSystem::downloadFile("https://www.nirsoft.net/utils/usbdeview-x64.zip", "usbdeview-x64.zip"); break; 
+            case 10: FileSystem::downloadFile("https://www.nirsoft.net/utils/loadeddllsview-x64.zip", "loadeddllsview-x64.zip"); break; 
+            case 11: FileSystem::downloadFile("https://www.nirsoft.net/utils/processactivityview-x64.zip", "processactivityview-x64.zip"); break; 
+            case 12: FileSystem::downloadFile("https://www.nirsoft.net/utils/executedprogramslist.zip", "executedprogramslist-x64.zip"); break; 
+            case 13: FileSystem::downloadFile("https://www.nirsoft.net/utils/browserdownloadsview-x64.zip", "browserdownloadsview.zip"); break; 
+            case 14: FileSystem::downloadFile("https://www.nirsoft.net/utils/browsinghistoryview-x64.zip", "browserhistoryview.zip"); break;
+            case 15: FileSystem::downloadFile("https://www.nirsoft.net/utils/shellbagsview.zip", "shellbagsview.zip"); break; 
+            case 16: FileSystem::downloadFile("https://www.nirsoft.net/utils/userassistview.zip", "userassistview.zip"); break;
+            case 17: FileSystem::downloadFile("https://www.nirsoft.net/utils/myeventviewer-x64.zip", "myeventviewer-x64.zip"); break; 
+            case 18: FileSystem::downloadFile("https://www.nirsoft.net/utils/injecteddll.zip", "injecteddll.zip"); break; 
+            case 19: FileSystem::downloadFile("https://www.nirsoft.net/utils/ofview-x64.zip", "OpenedFilesView-x64.zip"); break; 
+            case 20: FileSystem::downloadFile("https://www.nirsoft.net/utils/recentfilesview.zip", "recentfileview.zip"); break; 
+            case 21: FileSystem::downloadFile("https://www.nirsoft.net/utils/muicacheview.zip", "muicacheview.zip"); break;
+            case 22: FileSystem::downloadFile("https://www.nirsoft.net/utils/regdllview-x64.zip", "regdllview-x64.zip"); break; 
         }
     } catch (const std::exception& e) {
         std::cerr << Config::COLOR_ERROR << Language::Current::ERR << " " << e.what() 
@@ -69,86 +68,86 @@ void Tools::downloadAutoTool(int toolId) {
 
 void Tools::executeJournalCommand(int commandId) {
     switch (commandId) {
-        case 1: // SecurityChanges
+        case 1: 
             FileSystem::executeJournal(
                 "fsutil usn readjournal c: csv | findstr /i /C:\"0x00000800\" | findstr /i /C:\".exe\"",
                 "\\securityChanges.txt"
             );
             break;
-        case 2: // restartExplorer
+        case 2: 
             FileSystem::executeJournal(
                 "fsutil usn readjournal c: csv | findstr /i /C:\"0x00000100\" | findstr /i /C:\"explorer\" /C:\".pf\"",
                 "\\restartExplorer.txt"
             );
             break;
-        case 3: // deletedFiles
+        case 3: 
             FileSystem::executeJournal(
                 "fsutil usn readjournal c: csv | findstr /i /C:\"0x80000200\" | findstr /i /C:\".exe\" /C:\".py\" /C:\".jar\" /C:\".dll\" /C:\".com\" /C:\".pif\" /C:\".txt\" /C:\".jpg\" /C:\".jpeg\" /C:\".png\" /C:\".lnk\" /C:\".mp3\" /C:\".mp4\" /C:\".mkv\" /C:\".avi\" /C:\".ico\" /C:\".bat\" /C:\".cmd\" /C:\".reg\" /C:\".zip\" /C:\".rar\" /C:\".7z\" /C:\".ini\" /C:\".html\" /C:\".ppt\" /C:\".docx\" /C:\".xlsx\" /C:\".chm\" /C:\".aspx\" /C:\".app\" /C:\"?\"",
                 "\\deletedFiles.txt"
             );
             break;
-        case 4: // renamedFiles
+        case 4: 
             FileSystem::executeJournal(
                 "fsutil usn readjournal c: csv | findstr /i /C:\"0x00002020\" /C:\"0x00000020\" /C:\"0x00200000\" | findstr /i /C:\"0x80008000\" /C:\"0x00008006\" /C:\"0x80200120\" | findstr /i /C:\".exe\" /C:\".py\" /C:\".jar\" /C:\".dll\" /C:\".com\" /C:\".pif\" /C:\".txt\" /C:\".jpg\" /C:\".jpeg\" /C:\".png\" /C:\".lnk\" /C:\".mp3\" /C:\".mp4\" /C:\".mkv\" /C:\".avi\" /C:\".ico\" /C:\".bat\" /C:\".cmd\" /C:\".reg\" /C:\".zip\" /C:\".rar\" /C:\".7z\" /C:\".ini\" /C:\".html\" /C:\".ppt\" /C:\".docx\" /C:\".xlsx\" /C:\".chm\" /C:\".aspx\" /C:\".app\" /C:\"?\"",
                 "\\renamedfiles.txt"
             );
             break;
-        case 5: // fileStreams
+        case 5:
             FileSystem::executeJournal(
                 "fsutil usn readjournal c: csv | findstr /i /C:\"0x00200120\"",
                 "\\fileStreams.txt"
             );
             break;
-        case 6: // jarCache
+        case 6: 
             FileSystem::executeJournal(
                 "fsutil usn readjournal c: csv | findstr /i /C:\"0x00000004\" /C:\"0x00000102\" | findstr /i /C:\"jar_cache\" /C:\".timestamp\"",
                 "\\jarCache.txt"
             );
             break;
-        case 7: // fileCreation 
+        case 7: 
             FileSystem::executeJournal(
                 "fsutil usn readjournal c: csv | findstr /i /C:\"0x00000100\" | findstr /i /C:\".exe\" /C:\".dll\" /C:\".sys\"",
                 "\\fileCreation.txt"
             );
             break;
-        case 8: // dataChange
+        case 8:
             FileSystem::executeJournal(
                 "fsutil usn readjournal c: csv | findstr /i /C:\"0x00000002\" | findstr /i /C:\".exe\" /C:\".dll\" /C:\".sys\" /C:\".dat\"",
                 "\\dataChange.txt"
             );
             break;
-        case 9: // extensionChange
+        case 9:
             FileSystem::executeJournal(
                 "fsutil usn readjournal c: csv | findstr /i /C:\"0x00001000\" | findstr /i /C:\".exe\" /C:\".dll\" /C:\".dat\" /C:\".tmp\" /C:\".bak\"",
                 "\\extensionChange.txt"
             );
             break;
-        case 10: // systemFiles
+        case 10:
             FileSystem::executeJournal(
                 "fsutil usn readjournal c: csv | findstr /i /C:\"0x00000100\" | findstr /i /C:\"\\Windows\\System32\" /C:\"\\Windows\\SysWOW64\"",
                 "\\systemFiles.txt"
             );
             break;
-        case 11: // tempFiles
+        case 11:
             FileSystem::executeJournal(
                 "fsutil usn readjournal c: csv | findstr /i /C:\"0x00000100\" | findstr /i /C:\"\\Temp\\\" /C:\"\\AppData\\Local\\Temp\\\"",
                 "\\tempFiles.txt"
             );
             break;
-        case 12: // downloads
+        case 12: 
             FileSystem::executeJournal(
                 "fsutil usn readjournal c: csv | findstr /i /C:\"0x00000100\" | findstr /i /C:\"\\Downloads\\\"",
                 "\\downloads.txt"
             );
             break;
-        case 13: // serviceChanges
+        case 13: 
             FileSystem::executeJournal(
                 "fsutil usn readjournal c: csv | findstr /i /C:\"0x00000100\" | findstr /i /C:\"\\services\" /C:\".service\"",
                 "\\serviceChanges.txt"
             );
             break;
         default:
-            std::cerr << Config::COLOR_ERROR << Language::Current::ERR << " Invalid command ID." 
+            std::cerr << Config::COLOR_ERROR << Language::Current::ERR << Language::Current::INVALID_COMMAND_ID
                       << Config::COLOR_RESET << std::endl;
             return;
     }
@@ -207,7 +206,7 @@ void Tools::executeRegistryCommand(int commandId) {
 }
 
 void Tools::executeEventViewerCommand(int commandId) {
-    showLoadingAnimation("Analisi Event Viewer...", 1800);
+    showLoadingAnimation(Language::Current::EVENT_VIEWER_LOADING, 15000);
     int executed = -1;
     switch (commandId) {
         case 1: executed = FileSystem::executePowerShell("Get-EventLog -LogName Security -InstanceId 4616"); break;
@@ -218,17 +217,17 @@ void Tools::executeEventViewerCommand(int commandId) {
     }
     if (executed != 0) {
         system("CLS");
-        std::cout << "\x1B[36mNessun evento rilevato\033[0m" << std::endl;
+        std::cout << "\x1B[36m" << Language::Current::NO_EVENTS_FOUND << "\033[0m" << std::endl;
     }
 }
 
 void Tools::executeBamAnalysis() {
     system("CLS");
-    showLoadingAnimation("Eseguendo il BAM, potrebbero volerci alcuni secondi...", 2500);
+    showLoadingAnimation(Language::Current::BAM_SEARCHING, 15000);
     std::string scriptPath = Config::BASE_PATH + "\\script.ps1";
     std::ofstream file(scriptPath);
     if (!file.is_open()) {
-        std::cerr << Config::COLOR_ERROR << Language::Current::ERR << " Impossibile creare il file temporaneo." 
+        std::cerr << Config::COLOR_ERROR << Language::Current::TEMP_FILE_ERROR
                   << Config::COLOR_RESET << std::endl;
         system("PAUSE");
         return;
@@ -241,7 +240,7 @@ void Tools::executeBamAnalysis() {
     int result = system(command.c_str());
     
     if (result != 0) {
-        std::cout << Config::COLOR_ERROR << Language::Current::ERR << " nell'esecuzione dello script BAM" 
+        std::cout << Config::COLOR_ERROR << Language::Current::BAM_SCRIPT_ERROR 
                   << Config::COLOR_RESET << std::endl;
     }
 
@@ -254,7 +253,7 @@ void Tools::executeBamAnalysis() {
 }
 
 void Tools::macroSoftwareFinder() {
-    showLoadingAnimation(Language::Current::SEARCHING, 1800);
+    showLoadingAnimation(Language::Current::SEARCHING, 15000);
 
     std::vector<std::string> foundPaths;
     std::string userFolder = FileSystem::getUserDirectory();
@@ -264,7 +263,6 @@ void Tools::macroSoftwareFinder() {
     for (const auto& rawPath : programPaths) {
         std::string path = rawPath;
 
-        // Sostituisci USERNAME con il nome utente corrente
         size_t pos = path.find("USERNAME");
         if (pos != std::string::npos) {
             char username[256];
@@ -272,15 +270,15 @@ void Tools::macroSoftwareFinder() {
             GetUserNameA(username, &username_len);
             path.replace(pos, 9, username);
         }
-        // Prefissa con la cartella utente se inizia con "AppData"
+
         if (path.find("AppData") == 0) {
             path = userFolder + "\\" + path;
         }
-        // Prefissa con la cartella utente se inizia con "Users
+
         else if (path.find("Users\\") == 0) {
             path = std::string(systemDrive) + "\\" + path;
         }
-        // Prefissa con C:\ se inizia con "Program Files" o "ProgramData"
+
         else if (path.find("Program Files") == 0 || path.find("ProgramData") == 0) {
             path = std::string(systemDrive) + "\\" + path;
         }
@@ -300,7 +298,7 @@ void Tools::handleMacroPathsSelection(const std::vector<std::string>& foundPaths
     bool done = false;
     while (!done) {
         system("CLS");
-        std::cout << Config::COLOR_BLUE << "Seleziona un numero per aprire la directory" 
+        std::cout << Config::COLOR_BLUE << Language::Current::OPEN_DIR_CHOICE
                   << Config::COLOR_RESET << std::endl;
         std::cout << Config::COLOR_BLUE << "[0]" << Config::COLOR_RESET 
                   << Config::COLOR_CYAN << " " << Language::Current::BACK << Config::COLOR_RESET << std::endl;
@@ -340,73 +338,6 @@ void Tools::cleanMainDirectory() {
     }
 }
 
-std::vector<std::string> Tools::getScreenSharingProcesses() {
-    return {
-        "Teams.exe",              // Microsoft Teams
-        "Discord.exe",            // Discord
-        "Skype.exe",             // Skype
-        "Zoom.exe",              // Zoom
-        "AnyDesk.exe",           // AnyDesk
-        "TeamViewer.exe",        // TeamViewer
-        "chrome.exe",            // Chrome (potrebbe avere condivisione schermo attiva)
-        "msedge.exe",            // Edge (potrebbe avere condivisione schermo attiva)
-        "firefox.exe",           // Firefox (potrebbe avere condivisione schermo attiva)
-        "Slack.exe",             // Slack
-        "Webex.exe",            // Cisco Webex
-        "Telegram.exe",          // Telegram
-        "WhatsApp.exe"          // WhatsApp Desktop
-    };
-}
-
-bool Tools::checkScreenSharing() {
-    system("CLS");
-    bool found = false;
-    auto processes = getScreenSharingProcesses();
-    
-    std::cout << Config::COLOR_BLUE << Language::Current::CHECKING_SCREEN_SHARE 
-              << Config::COLOR_RESET << std::endl;
-
-    // Controllo processi standard
-    for (const auto& process : processes) {
-        if (isProcessRunning(process)) {
-            std::cout << Config::COLOR_BLUE << Language::Current::FOUND_SOFTWARE << Config::COLOR_CYAN 
-                      << process << Config::COLOR_RESET << std::endl;
-            found = true;
-        }
-    }
-
-    // Controllo servizi di condivisione schermo di Windows
-    std::string command = "tasklist /FI \"SERVICES eq TermService\" /NH";
-    if (system(command.c_str()) == 0) {
-        std::cout << Config::COLOR_BLUE << Language::Current::WINDOWS_REMOTE_SERVICE 
-                  << Config::COLOR_RESET << std::endl;
-        found = true;
-    }
-
-    if (!found) {
-        std::cout << Config::COLOR_BLUE << Language::Current::NO_RECORDING_SOFTWARE 
-                  << Config::COLOR_RESET << std::endl;
-    }
-    std::cout << "\n" << Language::Current::PRESS_KEY << std::endl;
-    _getch();
-    return found;
-}
-
-void Tools::showLoadingAnimation(const std::string& message, int duration) {
-    const char sequence[] = {'|', '/', '-', '\\'};
-    int count = 0;
-    int iterations = duration / 100;  // 100ms per frame
-
-    for (int i = 0; i < iterations; i++) {
-        std::cout << "\r" << Config::COLOR_BLUE << message << " "
-                  << Config::COLOR_CYAN << sequence[count % 4]
-                  << Config::COLOR_RESET << std::flush;
-        Sleep(100);
-        count++;
-    }
-    std::cout << "\r" << std::string(message.length() + 4, ' ') << "\r";
-}
-
 bool Tools::isProcessRunning(const std::string& processName) {
     HANDLE hProcessSnap;
     PROCESSENTRY32W pe32;
@@ -429,9 +360,8 @@ bool Tools::isProcessRunning(const std::string& processName) {
     return false;
 }
 
-// --- LISTA UNICA DI PERCORSI MACRO SOFTWARE ---
+
 const std::vector<std::string> programPaths = {
-    // Mouse e tastiere gaming
     "Program Files (x86)\\Trust",
     "Program Files\\Trust",
     "Users\\USERNAME\\AppData\\Local\\Trust",

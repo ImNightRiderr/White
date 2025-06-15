@@ -33,7 +33,7 @@ namespace Language {
         static constexpr const char* RECORD = "Registrazioni";
         static constexpr const char* BAM = "Analisi BAM";
         static constexpr const char* BACK = "Indietro";
-        static constexpr const char* SEARCHING = "Cercando . . .";
+        
 
         // Messaggi generali
         static constexpr const char* WELCOME_MESSAGE =
@@ -82,10 +82,16 @@ namespace Language {
         static constexpr const char* PROCESS_TERMINATED = "Processo terminato";
         static constexpr const char* ERR = "Errore:";
         static constexpr const char* NO_EVENTS_FOUND = "Nessun evento rilevato";
+        static constexpr const char* REGISTRY_OPENING = "Aprendo l'Editor del Registro";
         static constexpr const char* OPEN_DIR_CHOICE = "Seleziona un numero per aprire la directory";
         static constexpr const char* TEMP_FILE_ERROR = "Impossibile creare il file temporaneo.";
         static constexpr const char* BAM_SCRIPT_ERROR = "Errore nell'esecuzione dello script BAM";
         static constexpr const char* JOURNAL_LOADING = "Cercando nel percorso del journal selezionato...";
+        static constexpr const char* SEARCHING = "Cercando . . .";
+        static constexpr const char* BAM_SEARCHING = "Caricando BAM, attendere";
+        static constexpr const char* EVENT_VIEWER_LOADING = "Analizzando l'Event Viewer, attendi";
+        static constexpr const char* INVALID_COMMAND_ID = "ID comando non valido.";
+        static constexpr const char* AND  = "e";
     };
 }
 #endif
@@ -106,7 +112,7 @@ namespace Language {
         static constexpr const char* RECORD = "Recordings";
         static constexpr const char* BAM = "BAM Analysis";
         static constexpr const char* BACK = "Back";
-        static constexpr const char* SEARCHING = "Searching . . .";
+        
 
         // General messages
         static constexpr const char* WELCOME_MESSAGE =
@@ -155,10 +161,18 @@ namespace Language {
         static constexpr const char* PROCESS_TERMINATED = "Process terminated";
         static constexpr const char* ERR = "Error:";
         static constexpr const char* NO_EVENTS_FOUND = "No events found";
+        static constexpr const char* REGISTRY_OPENING = "Opening Registry Editor";
         static constexpr const char* OPEN_DIR_CHOICE = "Select a number to open the directory";
         static constexpr const char* TEMP_FILE_ERROR = "Unable to create temporary file.";
         static constexpr const char* BAM_SCRIPT_ERROR = "Error running BAM script";
         static constexpr const char* JOURNAL_LOADING = "Searching selected journal path...";
+        static constexpr const char* SEARCHING = "Searching . . .";
+        static constexpr const char* BAM_SEARCHING = "Loading BAM, please wait";
+        static constexpr const char* EVENT_VIEWER_LOADING = "Analyzing Event Viewer, please wait";
+        static constexpr const char* INVALID_COMMAND_ID = "Invalid command ID.";
+        static constexpr const char* AND  = "and";
+    
+       
     };
 }
 #endif

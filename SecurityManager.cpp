@@ -37,7 +37,6 @@ bool SecurityManager::elevateProcess(const char* extraArgs) {
 
     std::wstring params;
     if (extraArgs) {
-        // Converti extraArgs (char*) in std::wstring
         int len = MultiByteToWideChar(CP_UTF8, 0, extraArgs, -1, nullptr, 0);
         if (len > 0) {
             std::wstring wparams(len, L'\0');

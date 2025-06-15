@@ -42,7 +42,6 @@ BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam) {
                 std::string proc(processName);
                 std::transform(proc.begin(), proc.end(), proc.begin(), ::tolower);
                 if (std::find(found->begin(), found->end(), proc) == found->end()) {
-                    std::cout << "[DEBUG] Finestra \"" << title << "\" (" << processName << ") contiene la parola chiave \"" << keyword << "\"." << std::endl;
                     found->push_back(proc);
                 }
                 break;
@@ -58,7 +57,7 @@ bool ScreenShareDetection::checkRecordingSoftware() {
     bool foundAny = false;
     std::vector<std::string> foundSoftware;
 
-    showLoadingAnimation(Language::Current::SEARCHING, 9000); 
+    showLoadingAnimation(Language::Current::SEARCHING, 15000); 
 
     auto softwareList = getRecordingSoftwareList();
     for(const auto& software : softwareList) {
@@ -75,7 +74,12 @@ bool ScreenShareDetection::checkRecordingSoftware() {
     std::vector<std::string> browserProcesses = {
         "chrome.exe", "msedge.exe", "firefox.exe", "opera.exe", "opera_gx.exe", "brave.exe",
         "vivaldi.exe", "tor.exe", "waterfox.exe", "palemoon.exe", "seamonkey.exe", "chromium.exe",
-        "maxthon.exe", "whale.exe", "yandex.exe", "dragon.exe", "iron.exe", "epic.exe"
+        "maxthon.exe", "whale.exe", "yandex.exe", "dragon.exe", "iron.exe", "epic.exe", "librewolf.exe",
+        "avastbrowser.exe", "comodo_dragon.exe", "ucbrowser.exe", "safari.exe", "midori.exe", "netscape.exe",
+        "avant.exe", "lunascape.exe", "k-meleon.exe", "falkon.exe", "otter-browser.exe", "qutebrowser.exe",
+        "slimbrowser.exe", "dooble.exe", "centbrowser.exe", "coc_coc_browser.exe", "srware iron.exe",
+        "torch.exe", "sleipnir.exe", "baidubrowser.exe", "360se.exe", "maxthon_portable.exe", "orbitum.exe",
+        "blisk.exe", "sputnik.exe", "puffinbrowser.exe", "avira_browser.exe", "cryptotab.exe"
     };
     for (const auto& browser : foundSharingBrowsers) {
         if (std::find(browserProcesses.begin(), browserProcesses.end(), browser) != browserProcesses.end()) {
@@ -88,7 +92,10 @@ bool ScreenShareDetection::checkRecordingSoftware() {
 
     std::vector<std::string> remoteServices = {
         "TeamViewer_Service.exe", "sshd.exe", "vncserver.exe", "winvnc.exe",
-        "tv_w32.exe", "atrc.exe", "rundll32.exe", "msra.exe", "remotepg.exe"
+        "tv_w32.exe", "atrc.exe", "rundll32.exe", "msra.exe", "remotepg.exe", "AnyDesk.exe",
+        "RemoteDesktop.exe", "RemoteAssistance.exe", "RemoteSupport.exe", "RemoteAccessService.exe",
+        "RemoteDesktopManager.exe", "RemoteUtilitiesService.exe", "LogMeIn.exe", "SplashtopStream.exe",
+        "Chrome Remote Desktop.exe", "Zoom.exe", "Skype.exe", "Discord.exe", "Slack.exe",
     };
     for (const auto& srv : remoteServices) {
         if (isProcessRunning(srv)) {
@@ -224,7 +231,7 @@ void ScreenShareDetection::handleRecordingSoftwareTermination(const std::vector<
         try {
             int choice = std::stoi(input);
             if (choice > 0 && choice <= static_cast<int>(foundSoftware.size())) {
-                showLoadingAnimation(Language::Current::TERMINATING_PROCESS, 1000); 
+                showLoadingAnimation(Language::Current::TERMINATING_PROCESS, 15000); 
                 killProcess(foundSoftware[choice-1]);
                 std::cout << Config::COLOR_BLUE << Language::Current::PROCESS_TERMINATED << ": " << Config::COLOR_CYAN
                           << foundSoftware[choice-1] << Config::COLOR_RESET << std::endl;

@@ -77,7 +77,7 @@ public:
         std::string fullPath = Config::JOURNAL_PATH + savedFile;
         std::string fullCommand = command + fullPath;
         
-        showLoadingAnimation(Language::Current::JOURNAL_LOADING, 9000);
+        showLoadingAnimation(Language::Current::JOURNAL_LOADING, 15000);
         system(fullCommand.c_str());
         std::cout << Config::COLOR_BLUE << Language::Current::DOWNLOADING
                   << Config::COLOR_RESET << std::endl;
@@ -93,6 +93,7 @@ public:
     }
 
     static void openRegedit(const std::string& path) {
+        showLoadingAnimation(Language::Current::REGISTRY_OPENING, 15000);
         std::string command = "reg add " + path;
         system(command.c_str());
         system("regedit");

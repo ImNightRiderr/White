@@ -201,7 +201,7 @@ int Menu::getValidatedInput(int min, int max) {
         try {
             choice = std::stoi(input);
             if (choice >= min && choice <= max) return choice;
-            showError(Language::Current::INVALID_INPUT + std::to_string(min) + " e " + std::to_string(max) + ".");
+            showError(Language::Current::INVALID_INPUT + std::to_string(min) + " " + Language::Current::AND + " " + std::to_string(max)+ ".");
         } catch (...) {
             showError(Language::Current::MUST_BE_NUMBER);
         }

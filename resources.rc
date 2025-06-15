@@ -24,7 +24,7 @@ BEGIN
         BLOCK "040904E4"
         BEGIN
             VALUE "CompanyName", "NightRiderr_"
-            VALUE "FileDescription", "White.exe a Minecraft ScreenShare Tool"
+            VALUE "FileDescription", "White.exe ScreenShare Tool"
             VALUE "FileVersion", "2.0"
             VALUE "InternalName", "white"
             VALUE "LegalCopyright", "Copyright © 2024 - 2025"

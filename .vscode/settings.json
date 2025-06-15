@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.go": "go",
-        "vector": "cpp"
+        "vector": "cpp",
+        "xstring": "cpp"
     }
 }

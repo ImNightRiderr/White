@@ -53,7 +53,7 @@ Esegue automaticamente la scansione della Background Activity Moderator (BAM).
 
 ---
 
-# Guida alla Compilazione di White (usando MinGW)
+## Guida alla Compilazione di White (usando MinGW)
 
 ## Prerequisiti
 
@@ -166,7 +166,7 @@ Automatically inspects the Background Activity Moderator (BAM) to identify recen
 
 ---
 
-# Compiling Guide for White (using MinGW)
+## Compiling Guide for White (using MinGW)
 
 ## Prerequisites
 

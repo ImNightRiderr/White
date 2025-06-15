@@ -22,7 +22,7 @@ namespace Config {
 
     const std::string TITLE = "White.exe - ";
     const std::string AUTHOR = " By: NightRiderr_"; // Non rimuovere questa riga, per usare il programma devi mantenere l'autore (NightRiderr_) come da licenza. Don't remove this line, to use the program you must keep the author (NightRiderr_) as license.
-    const std::string VERSION = "Beta 1.9 ";
+    const std::string VERSION = "v2.0 ";
     const std::string COPYRIGHT = " - Copyright (c) 2025";
     static std::string BASE_PATH;
     static std::string TOOLS_PATH;

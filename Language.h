@@ -62,7 +62,7 @@ namespace Language {
             " - Eseguire controlli approfonditi durante lo screenshare\n\n"
             "Per favore, riavvia il programma e concedi i permessi di amministratore.";
 
-        static constexpr const char* ELIMINATION_CONFIRM_QST = "Vuoi eliminare i tutti file presennti sulla cartella \\Download\\White e la cartella stessa? (y/n):"
+        static constexpr const char* ELIMINATION_CONFIRM_QST = "Vuoi eliminare i tutti file presennti sulla cartella \\Download\\White e la cartella stessa? (y/n):";
         static constexpr const char* ELIMINATION_COMPLETE = "Tutti i file nella cartella 'White' sono stati eliminati.";
         static constexpr const char* OPERATION_CANCELLED = "\nOperazione annullata. Il programma non verr\205 avviato.";
         static constexpr const char* PRESS_KEY = "Premi un tasto per continuare...";

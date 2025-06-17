@@ -28,9 +28,11 @@ namespace Language {
         static constexpr const char* MACRO_PATHS = "Percorsi Macro";
         static constexpr const char* REGISTRY_PATHS = "Percorsi Registro";
         static constexpr const char* EVENT_VIEWER = "Visualizzatore Eventi";
-        static constexpr const char* RECORD = "Registrazioni";
+        static constexpr const char* RECORD = "Controllo: VM, Registrazioni, Condivisione Schermo";
         static constexpr const char* BAM = "Analisi BAM";
         static constexpr const char* BACK = "Indietro";
+        static constexpr const char* WORKING_DIRECTORY = "Cartella di lavoro";
+        static constexpr const char* CLEANING = "Eliminazione della cartella Principale in corso...";
         
 
         // Messaggi generali
@@ -94,6 +96,8 @@ namespace Language {
         static constexpr const char* AND  = "e";
         static constexpr const char* DIRECTORY_CREATED = "Cartella creata con successo.";
         static constexpr const char* ERR_CREATE_DIR = "Impossibile creare la cartella.";
+        static constexpr const char* OPENING_REGEDIT = "Apertura dell'Editor del Registro di sistema";
+        static constexpr const char* VIRTUAL_ENVIRONMENT_DETECTED = "Ambiente virtuale rilevato";
     };
 }
 #endif
@@ -109,9 +113,11 @@ namespace Language {
         static constexpr const char* MACRO_PATHS = "Macro Paths";
         static constexpr const char* REGISTRY_PATHS = "Registry Paths";
         static constexpr const char* EVENT_VIEWER = "Event Viewer";
-        static constexpr const char* RECORD = "Recordings";
+        static constexpr const char* RECORD = "Check: VM, Recordings, Screen Sharing";
         static constexpr const char* BAM = "BAM Analysis";
         static constexpr const char* BACK = "Back";
+        static constexpr const char* WORKING_DIRECTORY = "Working Directory";
+        static constexpr const char* CLEANING = "Cleaning main directory";
         
 
         // General messages
@@ -175,8 +181,8 @@ namespace Language {
         static constexpr const char* AND  = "and";
         static constexpr const char* DIRECTORY_CREATED = "Directory created successfully.";
         static constexpr const char* ERR_CREATE_DIR = "Error creating directory.";
-    
-       
+        static constexpr const char* OPENING_REGEDIT = "Opening Registry Editor";
+        static constexpr const char* VIRTUAL_ENVIRONMENT_DETECTED = "Detected virtual environment";
     };
 }
 #endif

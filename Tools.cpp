@@ -63,6 +63,7 @@ void Tools::downloadAutoTool(int toolId) {
         case 1: FileSystem::openBrowser("https://dl.avenge.ac"); break;
         case 2: FileSystem::openBrowser("https://dl.echo.ac"); break;
         case 3: FileSystem::openBrowser("https://dl.paladin.ac"); break;
+        case 4: FileSystem::openBrowser("https://anticheat.ac/download/"); break; 
     }
 }
 
@@ -156,24 +157,24 @@ void Tools::executeJournalCommand(int commandId) {
 void Tools::executeRegistryCommand(int commandId) {
     switch (commandId) {
         case 1: 
-            FileSystem::openRegedit("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters");
+            FileSystem::openRegedit("HKEY_LOCAL_MACHINE\\SYSTEM\\ControlSet001\\Services\\bam\\State\\UserSettings");
             break;
         case 2: 
-            FileSystem::openRegedit("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Compatibility Assistant\\Store");
+            FileSystem::openRegedit("\"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Compatibility Assistant\\Store\"");
             break;
         case 3: 
-            FileSystem::openRegedit("HKEY_CURRENT_USER\\SOFTWARE\\WinRAR\\ArcHistory");
+            FileSystem::openRegedit("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts");
             break;
         case 4: 
             FileSystem::openRegedit("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\OpenSavePidlMRU");
             break;
         case 5: 
-            FileSystem::openRegedit("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\bam\\State\\UserSettings");
+            FileSystem::openRegedit("\"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\"");
             break;
         case 6: 
-            FileSystem::openRegedit("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\Shell\\MuiCache");
+            FileSystem::openRegedit("HKEY_LOCAL_MACHINE\\SYSTEM\\MountedDevices");
             break;
-        case 7: 
+        case 7:
             FileSystem::openRegedit("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Enum\\USB");
             break;
         case 8: 
@@ -183,22 +184,7 @@ void Tools::executeRegistryCommand(int commandId) {
             FileSystem::openRegedit("HKEY_CLASSES_ROOT\\LocalSettings\\Software\\Microsoft\\Windows\\Shell\\MuiCache");
             break;
         case 10: 
-            FileSystem::openRegedit("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\OpenSavePidlMRU\\*");
-            break;
-        case 11: 
-            FileSystem::openRegedit("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\.dll");
-            break;
-        case 12: 
-            FileSystem::openRegedit("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts");
-            break;
-        case 13: 
             FileSystem::openRegedit("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\LastVisitedPidlMRU");
-            break;
-        case 14: 
-            FileSystem::openRegedit("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32");
-            break;
-        case 15: 
-            FileSystem::openRegedit("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\OpenSavePidlMRU");
             break;
     }
 }
@@ -259,6 +245,7 @@ void Tools::executeBamAnalysis() {
     if (!file.is_open()) {
         std::cerr << Config::COLOR_ERROR << Language::Current::TEMP_FILE_ERROR
                   << Config::COLOR_RESET << std::endl;
+        loading.reset();
         system("PAUSE");
         return;
     }
@@ -278,8 +265,7 @@ void Tools::executeBamAnalysis() {
         system(("del /F \"" + scriptPath + "\"").c_str());
     }
 
-    std::cout << "\n" << Language::Current::PRESS_KEY << std::endl;
-    _getch();
+    loading.reset();
 }
 
 void Tools::macroSoftwareFinder() {
@@ -319,6 +305,7 @@ void Tools::macroSoftwareFinder() {
                       << Config::COLOR_CYAN << " " << path << Config::COLOR_RESET << std::endl;
         }
     }
+    loading.reset();
     if (!foundPaths.empty()) {
         handleMacroPathsSelection(foundPaths);
     }
@@ -355,39 +342,44 @@ void Tools::handleMacroPathsSelection(const std::vector<std::string>& foundPaths
     }
 }
 
-void Tools::cleanMainDirectory() {
-    std::string path = Config::BASE_PATH;
-    if (FileSystem::directoryExists(path)) {
-        std::string command = "rd /S /Q \"" + path + "\"";
-        int result = system(command.c_str());
-        if (result != 0) {
-            command = "powershell.exe -Command \"Remove-Item -Path '" + path + 
-                     "' -Recurse -Force -ErrorAction SilentlyContinue\"";
-            system(command.c_str());
-        }
-    }
+void Tools::executeSCQuery(int queryId) {
+    std::string command;
+    switch (queryId) {
+        case 1: 
+            command = "sc query sysmain";
+            break;
+        case 2: 
+            command = "sc query dps";
+            break;
+        case 3: 
+            command = "sc query pcasvc";
+            break;
+        case 4: 
+            command = "sc query diagtrack";
+            break;
+        case 5: 
+            command = "sc start diagtrack";
+            break;
+        default:
+            std::cout << Config::COLOR_ERROR << Language::Current::INVALID_COMMAND_ID << Config::COLOR_RESET << std::endl;
+            return;
+    }   
+    system(command.c_str());
 }
+void Tools::cleanMainDirectory() {
+    auto loading = LoadingAnimation::start(Language::Current::CLEANING);
+    
+    std::string command = "rmdir /s /q \"" + Config::TOOLS_PATH + "\"";
+    system(command.c_str());
+    command = "rmdir /s /q \"" + Config::JOURNAL_PATH + "\"";
+    system(command.c_str());
+    
+    command = "rmdir /s /q \"" + Config::BASE_PATH + "\"";
+    system(command.c_str());
 
-bool Tools::isProcessRunning(const std::string& processName) {
-    HANDLE hProcessSnap;
-    PROCESSENTRY32W pe32;
-    hProcessSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-    if (hProcessSnap == INVALID_HANDLE_VALUE)
-        return false;
-    pe32.dwSize = sizeof(PROCESSENTRY32W);
-    if (!Process32FirstW(hProcessSnap, &pe32)) {
-        CloseHandle(hProcessSnap);
-        return false;
-    }
-    std::wstring wProcessName(processName.begin(), processName.end());
-    do {
-        if (_wcsicmp(pe32.szExeFile, wProcessName.c_str()) == 0) {
-            CloseHandle(hProcessSnap);
-            return true;
-        }
-    } while (Process32NextW(hProcessSnap, &pe32));
-    CloseHandle(hProcessSnap);
-    return false;
+    
+    
+    loading.reset();
 }
 
 
@@ -400,7 +392,7 @@ const std::vector<std::string> programPaths = {
     "Users\\USERNAME\\AppData\\Local\\Bloody7",
     "Program Files (x86)\\Glorious Core",
     "Program Files\\Glorious Core",
-    "Users\\USERNAME\\AppData\\Local\\Glorious Core",
+    "Users\\USERNAME\\AppData\\Local\\Glorizous Core",
     "Program Files\\SteelSeries",
     "Program Files (x86)\\SteelSeries",
     "Users\\USERNAME\\AppData\\Local\\SteelSeries",

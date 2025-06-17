@@ -20,7 +20,50 @@
 #include <iostream>
 #include <conio.h>
 #include <algorithm>
+#include <intrin.h>
 
+bool IsVM_CPUID()
+{
+    int regs[4] = { 0 };
+    __cpuid(regs, 1);
+    return (regs[2] & (1u << 31)) != 0;
+}
+
+
+bool IsVM_Registry()
+{
+    HKEY hKey = nullptr;
+    if (RegOpenKeyExW(HKEY_LOCAL_MACHINE,
+                      L"HARDWARE\\DESCRIPTION\\System\\BIOS",
+                      0, KEY_READ, &hKey) != ERROR_SUCCESS)
+        return false;
+
+    WCHAR buf[128];
+    DWORD size, type;
+    for (LPCWSTR name : { L"SystemManufacturer", L"SystemProductName" })
+    {
+        size = sizeof(buf);
+        if (RegQueryValueExW(hKey, name, nullptr, &type, (LPBYTE)buf, &size) == ERROR_SUCCESS
+            && (type == REG_SZ || type == REG_EXPAND_SZ))
+        {
+            std::wstring s(buf);
+            std::transform(s.begin(), s.end(), s.begin(), ::towlower);
+            for (auto& key : ScreenShareDetection::vmKeys)
+                if (s.find(key) != std::wstring::npos)
+                {
+                    RegCloseKey(hKey);
+                    return true;
+                }
+        }
+    }
+    RegCloseKey(hKey);
+    return false;
+}
+
+bool IsRunningInVM()
+{
+    return IsVM_CPUID() || IsVM_Registry();
+}
 
 BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam) {
     char title[512];
@@ -58,6 +101,12 @@ bool ScreenShareDetection::checkRecordingSoftware() {
     std::vector<std::string> foundSoftware;
 
     showLoadingAnimation(Language::Current::SEARCHING, 999999); 
+
+    if (IsRunningInVM()) {
+        std::cout << Config::COLOR_ERROR << Language::Current::VIRTUAL_ENVIRONMENT_DETECTED
+                  << Config::COLOR_RESET << std::endl;
+        
+    }
 
     auto softwareList = getRecordingSoftwareList();
     for(const auto& software : softwareList) {
@@ -242,6 +291,18 @@ void ScreenShareDetection::handleRecordingSoftwareTermination(const std::vector<
         }
     }
 }
+
+const std::vector<std::wstring> ScreenShareDetection::vmKeys = {
+    L"vmware", L"vmware, inc.", L"vmware virtual platform",
+    L"virtualbox", L"innotek gmbh", L"oracle corporation",
+    L"kvm", L"qemu", L"bochs", L"acrn",
+    L"xen", L"xenproject", L"xen hvm",
+    L"hyper-v", L"microsoft corporation", L"microsoft virtual pc",
+    L"microsoft virtual server", L"parallels", L"bhyve",
+    L"amazon ec2", L"google compute engine",
+    L"microsoft azure", L"digitalocean", L"openstack"
+};
+
 
 const std::vector<std::string> ScreenShareDetection::keywords = {
     // Italiano

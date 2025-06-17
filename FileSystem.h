@@ -22,6 +22,7 @@
 
 class FileSystem {
 public:
+    
     static bool isValidUrl(const std::string& url) {
         return url.rfind("http://", 0) == 0 || url.rfind("https://", 0) == 0;
     }
@@ -91,55 +92,54 @@ public:
                   << Config::COLOR_RESET << std::endl;
     }
 
-    static void createMainDirectory() {
-        std::string basePath = Config::BASE_PATH;
+
+    static std::string getDesktopPath() {
+        char desktopPath[MAX_PATH];
+        if (SHGetFolderPathA(nullptr, CSIDL_DESKTOP, nullptr, 0, desktopPath) == S_OK) {
+            return std::string(desktopPath);
+        } else {
+            return " ";
+        }
+    }
+    static bool createMainDirectory() {
+        std::string basePath = getDesktopPath() + "\\White";
         std::string originalPath = basePath;
         int counter = 1;
 
-        while (directoryExists(basePath)) {
+        while (true) {
+            if (!directoryExists(basePath)) {
+                Config::BASE_PATH = basePath;
+                Config::TOOLS_PATH = basePath + "\\Tools";
+                Config::JOURNAL_PATH = basePath + "\\Journal";
+
+                if (CreateDirectoryA(Config::BASE_PATH.c_str(), NULL)) {
+                    CreateDirectoryA(Config::TOOLS_PATH.c_str(), NULL);
+                    CreateDirectoryA(Config::JOURNAL_PATH.c_str(), NULL);
+                    Sleep(1500);
+                    system("CLS");
+                    Config::setBasePath(basePath);
+                    return true;
+                }
+            }
+
             basePath = originalPath + std::to_string(counter);
             counter++;
-        }
 
-        if (basePath != originalPath) {
-            Config::BASE_PATH = basePath;
-            Config::TOOLS_PATH = basePath + "\\Tools";
-            Config::JOURNAL_PATH = basePath + "\\Journal";
-        }
-
-        if (createDirectory(Config::BASE_PATH)) {
-            createDirectory(Config::TOOLS_PATH);
-            createDirectory(Config::JOURNAL_PATH);
-            std::cout << Config::COLOR_CYAN << Language::Current::DIRECTORY_CREATED << ": " 
-                      << Config::BASE_PATH << Config::COLOR_RESET << std::endl;
-            Sleep(1500);
-            system("CLS");
-        } else {
-            std::cout << Config::COLOR_ERROR << Language::Current::ERR_CREATE_DIR 
-                      << Config::COLOR_RESET << std::endl;
-            Sleep(1500);
-            system("CLS");
-        }
+            if (counter > 100) {
+                std::cout << Config::COLOR_ERROR << Language::Current::ERR_CREATE_DIR 
+                         << Config::COLOR_RESET << std::endl;
+                Sleep(1500);
+                return false;
+            }
+        }   
     }
 
     static void openRegedit(const std::string& path) {
-        auto loading = LoadingAnimation::start(Language::Current::DOWNLOADING);
-        
-        std::string regPath = path;
-        size_t pos;
-        if ((pos = regPath.find("HKEY_LOCAL_MACHINE")) != std::string::npos)
-            regPath.replace(pos, 17, "HKLM");
-        else if ((pos = regPath.find("HKEY_CURRENT_USER")) != std::string::npos)
-            regPath.replace(pos, 17, "HKCU");
-        else if ((pos = regPath.find("HKEY_CLASSES_ROOT")) != std::string::npos)
-            regPath.replace(pos, 17, "HKCR");
-        else if ((pos = regPath.find("HKEY_USERS")) != std::string::npos)
-            regPath.replace(pos, 10, "HKU");
-
-        std::string command = "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Applets\\Regedit\" /v \"LastKey\" /t REG_SZ /d \"" + regPath + "\" /f >nul 2>&1";
+        auto loading = LoadingAnimation::start(Language::Current::OPENING_REGEDIT);
+        std::string command = "reg add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Applets\\Regedit /v LastKey /t REG_SZ /d " + path + "\" /f >nul 2>&1";
         system(command.c_str());
         system("start regedit");
-        
+        Sleep(1500);
         loading.reset();
     }
 };

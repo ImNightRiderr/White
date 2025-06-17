@@ -24,6 +24,7 @@ public:
     void executeJournalCommand(int commandId);
     void executeRegistryCommand(int commandId);
     void executeEventViewerCommand(int commandId);
+    void executeSCQuery(int queryId);
     void executeBamAnalysis();
     void findRecordingSoftware();
     void macroSoftwareFinder();

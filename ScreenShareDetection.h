@@ -18,6 +18,7 @@ class ScreenShareDetection {
 public:
     bool checkRecordingSoftware();
     static const std::vector<std::string> keywords;
+    static const std::vector<std::wstring> vmKeys;
 private:
     struct RecordingSoftware {
         std::string processName;

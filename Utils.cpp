@@ -26,7 +26,7 @@ LoadingAnimation::~LoadingAnimation() {
         animationThread.join();
     }
     std::cout << "\r" << std::string(message.length() + 4, ' ') << "\r" << std::flush;
-    system("CLS");  // Add CLS when animation ends
+    system("CLS"); 
 }
 
 void LoadingAnimation::run() {

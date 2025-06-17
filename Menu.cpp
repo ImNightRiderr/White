@@ -1,4 +1,3 @@
-
 /* 
 
                 ############# White.exe V2.0 #############
@@ -23,7 +22,7 @@ Menu::Menu() : tools() {}
 void Menu::show() {
     while (running) {
         showMainMenu();
-        int choice = getValidatedInput(0, 8);
+        int choice = getValidatedInput(0, 9);
         switch (choice) {
             case 0: quit(); break;
             case 1: showManualTools(); break;
@@ -34,6 +33,7 @@ void Menu::show() {
             case 6: showEventViewer(); break;
             case 7: showRecordFinder(); break;
             case 8: showBam(); break;
+            case 9: showSCQuery(); break;
         }
     }
 }
@@ -41,6 +41,7 @@ void Menu::show() {
 void Menu::showMainMenu() {
     clearScreen(); //                                                        \/ Non rimuovere questa riga, per usare il programma devi mantenere l'autore (NightRiderr_) come da licenza. Don't remove this line, to use the program you must keep the author (NightRiderr_) as license.
     std::cout << Config::COLOR_BLUE << Config::TITLE << Config::VERSION << Config::AUTHOR << Config::COPYRIGHT << Config::COLOR_RESET << std::endl << std::endl;
+    std::cout << Config::COLOR_BLUE << Language::Current::WORKING_DIRECTORY << ": " << Config::COLOR_CYAN << Config::BASE_PATH << Config::COLOR_RESET << std::endl << std::endl;
     std::cout << Config::COLOR_BLUE << Language::Current::CHOOSE_OPERATION << Config::COLOR_RESET << std::endl;
     std::cout << Config::COLOR_BLUE << "[0]" << Config::COLOR_RESET << Config::COLOR_CYAN << " " << Language::Current::QUIT << Config::COLOR_RESET << std::endl;
     std::cout << Config::COLOR_BLUE << "[1]" << Config::COLOR_RESET << Config::COLOR_CYAN << " " << Language::Current::MANUAL_TOOLS << Config::COLOR_RESET << std::endl;
@@ -51,6 +52,7 @@ void Menu::showMainMenu() {
     std::cout << Config::COLOR_BLUE << "[6]" << Config::COLOR_RESET << Config::COLOR_CYAN << " " << Language::Current::EVENT_VIEWER << Config::COLOR_RESET << std::endl;
     std::cout << Config::COLOR_BLUE << "[7]" << Config::COLOR_RESET << Config::COLOR_CYAN << " " << Language::Current::RECORD << Config::COLOR_RESET << std::endl;
     std::cout << Config::COLOR_BLUE << "[8]" << Config::COLOR_RESET << Config::COLOR_CYAN << " " << Language::Current::BAM << Config::COLOR_RESET << std::endl;
+    std::cout << Config::COLOR_BLUE << "[9]" << Config::COLOR_RESET << Config::COLOR_CYAN << " " << "SC Query" << Config::COLOR_RESET << std::endl;
 }
 
 void Menu::showManualTools() {
@@ -92,7 +94,8 @@ void Menu::showAutoTools() {
     std::cout << Config::COLOR_BLUE << "[1]" << Config::COLOR_RESET << Config::COLOR_CYAN << " Download Avenge" << Config::COLOR_RESET << std::endl;
     std::cout << Config::COLOR_BLUE << "[2]" << Config::COLOR_RESET << Config::COLOR_CYAN << " Download Echo" << Config::COLOR_RESET << std::endl;
     std::cout << Config::COLOR_BLUE << "[3]" << Config::COLOR_RESET << Config::COLOR_CYAN << " Download Paladine" << Config::COLOR_RESET << std::endl;
-    int choice = getValidatedInput(0, 3);
+    std::cout << Config::COLOR_BLUE << "[4]" << Config::COLOR_RESET << Config::COLOR_CYAN << " Download Ocean" << Config::COLOR_RESET << std::endl; // This option will open a browser to download the AutoTool
+    int choice = getValidatedInput(0, 4);
     if (choice == 0) return;
     tools.downloadAutoTool(choice);
     pause();
@@ -133,20 +136,16 @@ void Menu::showRegistryTools() {
     clearScreen();
     std::cout << Config::COLOR_BLUE << Language::Current::REGISTRY_PATHS << Config::COLOR_RESET << std::endl;
     std::cout << Config::COLOR_BLUE << "[0]" << Config::COLOR_RESET << Config::COLOR_CYAN << " " << Language::Current::BACK << Config::COLOR_RESET << std::endl << std::endl;
-    std::cout << Config::COLOR_BLUE << "[1]" << Config::COLOR_RESET << Config::COLOR_CYAN << " Prefetch Settings" << Config::COLOR_RESET << std::endl;
-    std::cout << Config::COLOR_BLUE << "[2]" << Config::COLOR_RESET << Config::COLOR_CYAN << " Store" << Config::COLOR_RESET << std::endl;
-    std::cout << Config::COLOR_BLUE << "[3]" << Config::COLOR_RESET << Config::COLOR_CYAN << " WinRAR Archives" << Config::COLOR_RESET << std::endl;
-    std::cout << Config::COLOR_BLUE << "[4]" << Config::COLOR_RESET << Config::COLOR_CYAN << " Extensions" << Config::COLOR_RESET << std::endl;
-    std::cout << Config::COLOR_BLUE << "[5]" << Config::COLOR_RESET << Config::COLOR_CYAN << " BAM UserSettings" << Config::COLOR_RESET << std::endl;
-    std::cout << Config::COLOR_BLUE << "[6]" << Config::COLOR_RESET << Config::COLOR_CYAN << " MuiCache" << Config::COLOR_RESET << std::endl;
-    std::cout << Config::COLOR_BLUE << "[7]" << Config::COLOR_RESET << Config::COLOR_CYAN << " USB Devices" << Config::COLOR_RESET << std::endl;
-    std::cout << Config::COLOR_BLUE << "[8]" << Config::COLOR_RESET << Config::COLOR_CYAN << " Recently Opened Programs" << Config::COLOR_RESET << std::endl;
-    std::cout << Config::COLOR_BLUE << "[9]" << Config::COLOR_RESET << Config::COLOR_CYAN << " MuiCache (Visited Folders)" << Config::COLOR_RESET << std::endl;
-    std::cout << Config::COLOR_BLUE << "[10]" << Config::COLOR_RESET << Config::COLOR_CYAN << " Injected Files" << Config::COLOR_RESET << std::endl;
-    std::cout << Config::COLOR_BLUE << "[11]" << Config::COLOR_RESET << Config::COLOR_CYAN << " DLL Extensions" << Config::COLOR_RESET << std::endl;
-    std::cout << Config::COLOR_BLUE << "[12]" << Config::COLOR_RESET << Config::COLOR_CYAN << " File Extensions" << Config::COLOR_RESET << std::endl;
-    std::cout << Config::COLOR_BLUE << "[13]" << Config::COLOR_RESET << Config::COLOR_CYAN << " LastVisitedPidlMRU" << Config::COLOR_RESET << std::endl;
-    std::cout << Config::COLOR_BLUE << "[14]" << Config::COLOR_RESET << Config::COLOR_CYAN << " ComDlg32" << Config::COLOR_RESET << std::endl;
+    std::cout << Config::COLOR_BLUE << "[1]" << Config::COLOR_RESET << Config::COLOR_CYAN << " Executable Files ran" << Config::COLOR_RESET << std::endl;
+    std::cout << Config::COLOR_BLUE << "[2]" << Config::COLOR_RESET << Config::COLOR_CYAN << " Executed Programs (Store)" << Config::COLOR_RESET << std::endl;
+    std::cout << Config::COLOR_BLUE << "[3]" << Config::COLOR_RESET << Config::COLOR_CYAN << " File Type Associations" << Config::COLOR_RESET << std::endl;
+    std::cout << Config::COLOR_BLUE << "[4]" << Config::COLOR_RESET << Config::COLOR_CYAN << " Open Save DialogBox" << Config::COLOR_RESET << std::endl;
+    std::cout << Config::COLOR_BLUE << "[5]" << Config::COLOR_RESET << Config::COLOR_CYAN << " Prefetch Parameters" << Config::COLOR_RESET << std::endl;
+    std::cout << Config::COLOR_BLUE << "[6]" << Config::COLOR_RESET << Config::COLOR_CYAN << " Monted Volumes" << Config::COLOR_RESET << std::endl;
+    std::cout << Config::COLOR_BLUE << "[7]" << Config::COLOR_RESET << Config::COLOR_CYAN << " USB Connections Log" << Config::COLOR_RESET << std::endl;
+    std::cout << Config::COLOR_BLUE << "[8]" << Config::COLOR_RESET << Config::COLOR_CYAN << " Recently Opened Programs (DirectInput)" << Config::COLOR_RESET << std::endl;
+    std::cout << Config::COLOR_BLUE << "[9]" << Config::COLOR_RESET << Config::COLOR_CYAN << " MuiCache (Shell)" << Config::COLOR_RESET << std::endl;
+    std::cout << Config::COLOR_BLUE << "[10]" << Config::COLOR_RESET << Config::COLOR_CYAN << " Last Visited Pidl MRU" << Config::COLOR_RESET << std::endl;
     int choice = getValidatedInput(0, 14);
     if (choice == 0) return;
     tools.executeRegistryCommand(choice);
@@ -180,6 +179,22 @@ void Menu::showBam() {
     pause();
 }
 
+void Menu::showSCQuery() {
+    clearScreen();
+    std::cout << Config::COLOR_BLUE << "SC Querys" << Config::COLOR_RESET << std::endl;
+    std::cout << Config::COLOR_BLUE << "[0]" << Config::COLOR_RESET << Config::COLOR_CYAN << " " << Language::Current::BACK << Config::COLOR_RESET << std::endl << std::endl;
+    std::cout << Config::COLOR_BLUE << "[1]" << Config::COLOR_RESET << Config::COLOR_CYAN << " Sysmain" << Config::COLOR_RESET << std::endl;
+    std::cout << Config::COLOR_BLUE << "[2]" << Config::COLOR_RESET << Config::COLOR_CYAN << " dps" << Config::COLOR_RESET << std::endl;
+    std::cout << Config::COLOR_BLUE << "[3]" << Config::COLOR_RESET << Config::COLOR_CYAN << " pcasvc" << Config::COLOR_RESET << std::endl;
+    std::cout << Config::COLOR_BLUE << "[4]" << Config::COLOR_RESET << Config::COLOR_CYAN << " diagtrack" << Config::COLOR_RESET << std::endl;
+    std::cout << Config::COLOR_BLUE << "[5]" << Config::COLOR_RESET << Config::COLOR_CYAN << " diagtrack Start" << Config::COLOR_RESET << std::endl;
+    int choice = getValidatedInput(0, 5);
+    if (choice == 0) return;
+    tools.executeSCQuery(choice);
+    pause();
+}
+
+
 void Menu::showError(const std::string& message) {
     std::cout << Config::COLOR_ERROR << Language::Current::ERR << Config::COLOR_RESET << Config::COLOR_CYAN << " " << message << Config::COLOR_RESET << std::endl;
     Sleep(2000);
@@ -194,9 +209,10 @@ void Menu::quit() {
     if (!risposta.empty() && (risposta[0] == 'y' || risposta[0] == 'Y')) {
         tools.cleanMainDirectory();
         std::cout << Config::COLOR_CYAN << Language::Current::ELIMINATION_COMPLETE << Config::COLOR_RESET << std::endl;
+        Sleep(1500);
     }
     std::cout << Config::COLOR_BLUE << Language::Current::GOODBYE << Config::COLOR_RESET << std::endl;
-    Sleep(1500);
+    Sleep(1000);
     running = false;
 }
 

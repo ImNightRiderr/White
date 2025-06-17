@@ -1,4 +1,3 @@
-
 /* 
 
                 ############# White.exe V2.0 #############
@@ -62,7 +61,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         }
     }
 
-    FileSystem::createMainDirectory();
+    SetConsoleOutputCP(65001); 
+    
+    if (!FileSystem::createMainDirectory()) {
+        std::cout << Config::COLOR_ERROR << Language::Current::ERR_CREATE_DIR << Config::COLOR_RESET << std::endl;
+        Sleep(1500);
+        return 1;
+    }
+
     Menu menu;
     menu.show();
 

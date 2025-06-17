@@ -36,6 +36,7 @@ private:
     void showEventViewer();
     void showRecordFinder();
     void showBam();
+    void showSCQuery();
 
     void showError(const std::string& message);
     void clearScreen() { system("CLS"); }

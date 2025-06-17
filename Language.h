@@ -1,4 +1,5 @@
-/* 
+
+/*
 
                 ############# White.exe V2.0 #############
 
@@ -11,32 +12,66 @@
 */
 
 #pragma once
-#include <string>
+#include <windows.h>
 
-// Choose the language to compile: comment out one of the two lines
-// #define APP_LANG_ITALIAN
-#define APP_LANG_ENGLISH
+enum class SystemLanguage {
+    English,
+    Italian
+};
 
-#ifdef APP_LANG_ITALIAN
+inline SystemLanguage GetSystemLanguage() {
+    LANGID langID = GetUserDefaultUILanguage();
+    return (PRIMARYLANGID(langID) == LANG_ITALIAN)
+           ? SystemLanguage::Italian
+           : SystemLanguage::English;
+}
+
+#define LANG_TEXT(it, en) \
+    (GetSystemLanguage() == SystemLanguage::Italian ? (it) : (en))
+
 namespace Language {
     struct Current {
-        static constexpr const char* CHOOSE_OPERATION = "Scegli l'operazione:";
-        static constexpr const char* QUIT = "Esci";
-        static constexpr const char* MANUAL_TOOLS = "Tool Manuali";
-        static constexpr const char* AUTO_TOOLS = "Tool Automatici";
-        static constexpr const char* JOURNAL_PATHS = "Percorsi Journal";
-        static constexpr const char* MACRO_PATHS = "Percorsi Macro";
-        static constexpr const char* REGISTRY_PATHS = "Percorsi Registro";
-        static constexpr const char* EVENT_VIEWER = "Visualizzatore Eventi";
-        static constexpr const char* RECORD = "Controllo: VM, Registrazioni, Condivisione Schermo";
-        static constexpr const char* BAM = "Analisi BAM";
-        static constexpr const char* BACK = "Indietro";
-        static constexpr const char* WORKING_DIRECTORY = "Cartella di lavoro";
-        static constexpr const char* CLEANING = "Eliminazione della cartella Principale in corso...";
-        
+        static inline const char* CHOOSE_OPERATION = LANG_TEXT(
+            "Scegli l'operazione:",
+            "Choose operation:");
+        static inline const char* QUIT = LANG_TEXT(
+            "Esci",
+            "Quit");
+        static inline const char* MANUAL_TOOLS = LANG_TEXT(
+            "Tool Manuali",
+            "Manual Tools");
+        static inline const char* AUTO_TOOLS = LANG_TEXT(
+            "Tool Automatici",
+            "Automatic Tools");
+        static inline const char* JOURNAL_PATHS = LANG_TEXT(
+            "Percorsi Journal",
+            "Journal Paths");
+        static inline const char* MACRO_PATHS = LANG_TEXT(
+            "Percorsi Macro",
+            "Macro Paths");
+        static inline const char* REGISTRY_PATHS = LANG_TEXT(
+            "Percorsi Registro",
+            "Registry Paths");
+        static inline const char* EVENT_VIEWER = LANG_TEXT(
+            "Visualizzatore Eventi",
+            "Event Viewer");
+        static inline const char* RECORD = LANG_TEXT(
+            "Controllo: VM, Registrazioni, Condivisione Schermo",
+            "Check: VM, Recordings, Screen Sharing");
+        static inline const char* BAM = LANG_TEXT(
+            "Analisi BAM",
+            "BAM Analysis");
+        static inline const char* BACK = LANG_TEXT(
+            "Indietro",
+            "Back");
+        static inline const char* WORKING_DIRECTORY = LANG_TEXT(
+            "Cartella di lavoro",
+            "Working Directory");
+        static inline const char* CLEANING = LANG_TEXT(
+            "Eliminazione della cartella Principale in corso...",
+            "Cleaning main directory...");
 
-        // Messaggi generali
-        static constexpr const char* WELCOME_MESSAGE =
+        static inline const char* WELCOME_MESSAGE = LANG_TEXT(
             "============================================================\n"
             "                       \x1B[36mWhite.exe\x1B[0m\n"
             "============================================================\n\n"
@@ -54,74 +89,8 @@ namespace Language {
             "\x1B[33mNota:\x1B[0m per funzionare correttamente, il programma richiede i permessi di amministratore.\n"
             "Sono necessari per accedere a tutte le informazioni di sistema durante la condivisione dello schermo.\n\n"
             "Mi scuso per questo messaggio, ma ritengo importante essere trasparente.\n"
-            "Per continuare, digita \x1B[36mOK\x1B[0m e premi Invio: ";
+            "Per continuare, digita \x1B[36mOK\x1B[0m e premi Invio: ",
 
-        static constexpr const char* ADMIN_RIGHTS_ERROR =
-            "\x1B[31mERRORE: PERMESSI AMMINISTRATORE RIFIUTATI\x1B[0m\n"
-            "Il programma richiede i permessi di amministratore per poter:\n"
-            " - Visualizzare tutti i processi e le applicazioni in esecuzione\n"
-            " - Accedere a informazioni di sistema normalmente protette\n"
-            " - Eseguire controlli approfonditi durante lo screenshare\n\n"
-            "Per favore, riavvia il programma e concedi i permessi di amministratore.";
-
-        static constexpr const char* ELIMINATION_CONFIRM_QST = "Vuoi eliminare i tutti file presennti sulla cartella \\Download\\White e la cartella stessa? (y/n):";
-        static constexpr const char* ELIMINATION_COMPLETE = "Tutti i file nella cartella 'White' sono stati eliminati.";
-        static constexpr const char* OPERATION_CANCELLED = "\nOperazione annullata. Il programma non verr\205 avviato.";
-        static constexpr const char* PRESS_KEY = "Premi un tasto per continuare...";
-        static constexpr const char* INVALID_INPUT = "Errore: inserimento errato, seleziona un numero tra ";
-        static constexpr const char* MUST_BE_NUMBER = "Errore: devi inserire un numero";
-        static constexpr const char* GOODBYE = "Arrivederci, premi un tasto per continuare. . .";
-        static constexpr const char* AUTO_TOOLS_BROWSER = "Tool Automatici (APERTURA VIA BROWSER)";
-        static constexpr const char* ENTER_CHOICE = "Inserisci la tua scelta: ";
-        static constexpr const char* DOWNLOADING = "Download in corso...";
-        static constexpr const char* NO_RECORDING_SOFTWARE = "Nessun software di registrazione o condivisione trovato";
-        static constexpr const char* CHECKING_SCREEN_SHARE = "Controllo applicazioni di condivisione schermo...";
-        static constexpr const char* FOUND_SOFTWARE = "Trovato: ";
-        static constexpr const char* WINDOWS_REMOTE_SERVICE = "Servizio Desktop Remoto di Windows attivo";
-        static constexpr const char* SELECT_PROCESS = "Scegli quale processo terminare o tornare indietro";
-        static constexpr const char* RECORDING_NOTE = "Nota: Le registrazioni in corso potrebbero venir corrotte o eliminate.";
-        static constexpr const char* TERMINATING_PROCESS = "Terminazione processo in corso...";
-        static constexpr const char* PROCESS_TERMINATED = "Processo terminato";
-        static constexpr const char* ERR = "Errore:";
-        static constexpr const char* NO_EVENTS_FOUND = "Nessun evento rilevato";
-        static constexpr const char* REGISTRY_OPENING = "Aprendo l'Editor del Registro";
-        static constexpr const char* OPEN_DIR_CHOICE = "Seleziona un numero per aprire la directory";
-        static constexpr const char* TEMP_FILE_ERROR = "Impossibile creare il file temporaneo.";
-        static constexpr const char* BAM_SCRIPT_ERROR = "Errore nell'esecuzione dello script BAM";
-        static constexpr const char* JOURNAL_LOADING = "Cercando nel percorso del journal selezionato...";
-        static constexpr const char* SEARCHING = "Cercando . . .";
-        static constexpr const char* BAM_SEARCHING = "Caricando BAM, attendere";
-        static constexpr const char* EVENT_VIEWER_LOADING = "Analizzando l'Event Viewer, attendi";
-        static constexpr const char* INVALID_COMMAND_ID = "ID comando non valido.";
-        static constexpr const char* AND  = "e";
-        static constexpr const char* DIRECTORY_CREATED = "Cartella creata con successo.";
-        static constexpr const char* ERR_CREATE_DIR = "Impossibile creare la cartella.";
-        static constexpr const char* OPENING_REGEDIT = "Apertura dell'Editor del Registro di sistema";
-        static constexpr const char* VIRTUAL_ENVIRONMENT_DETECTED = "Ambiente virtuale rilevato";
-    };
-}
-#endif
-
-#ifdef APP_LANG_ENGLISH
-namespace Language {
-    struct Current {
-        static constexpr const char* CHOOSE_OPERATION = "Choose operation:";
-        static constexpr const char* QUIT = "Quit";
-        static constexpr const char* MANUAL_TOOLS = "Manual Tools";
-        static constexpr const char* AUTO_TOOLS = "Automatic Tools";
-        static constexpr const char* JOURNAL_PATHS = "Journal Paths";
-        static constexpr const char* MACRO_PATHS = "Macro Paths";
-        static constexpr const char* REGISTRY_PATHS = "Registry Paths";
-        static constexpr const char* EVENT_VIEWER = "Event Viewer";
-        static constexpr const char* RECORD = "Check: VM, Recordings, Screen Sharing";
-        static constexpr const char* BAM = "BAM Analysis";
-        static constexpr const char* BACK = "Back";
-        static constexpr const char* WORKING_DIRECTORY = "Working Directory";
-        static constexpr const char* CLEANING = "Cleaning main directory";
-        
-
-        // General messages
-        static constexpr const char* WELCOME_MESSAGE =
             "============================================================\n"
             "                       \x1B[36mWhite.exe\x1B[0m\n"
             "============================================================\n\n"
@@ -139,50 +108,124 @@ namespace Language {
             "\x1B[33mNote:\x1B[0m To work properly, the program requires administrator permissions.\n"
             "These are needed to access all system information during screen sharing.\n\n"
             "I apologize for this message, but I believe in being transparent.\n"
-            "To continue, type \x1B[36mOK\x1B[0m and press Enter: ";
+            "To continue, type \x1B[36mOK\x1B[0m and press Enter: ");
 
-        static constexpr const char* ADMIN_RIGHTS_ERROR =
+        static inline const char* ADMIN_RIGHTS_ERROR = LANG_TEXT(
+            "\x1B[31mERRORE: PERMESSI AMMINISTRATORE RIFIUTATI\x1B[0m\n"
+            "Il programma richiede i permessi di amministratore per poter:\n"
+            " - Visualizzare tutti i processi e le applicazioni in esecuzione\n"
+            " - Accedere a informazioni di sistema normalmente protette\n"
+            " - Eseguire controlli approfonditi durante lo screenshare\n\n"
+            "Per favore, riavvia il programma e concedi i permessi di amministratore.",
+
             "\x1B[31mERROR: ADMINISTRATOR PERMISSIONS DENIED\x1B[0m\n"
             "The program requires administrator permissions to:\n"
             " - View all running processes and applications\n"
             " - Access normally protected system information\n"
             " - Perform thorough checks during screensharing\n\n"
-            "Please restart the program and grant administrator permissions.";
+            "Please restart the program and grant administrator permissions.");
 
-        static constexpr const char* ELIMINATION_CONFIRM_QST = "Do you want to delete all files in the \\Downloads\\White folder and the folder itself? (y/n):";
-        static constexpr const char* ELIMINATION_COMPLETE = "All files in the 'White' folder have been deleted.";
-        static constexpr const char* OPERATION_CANCELLED = "\nOperation cancelled. The program will not start.";
-        static constexpr const char* PRESS_KEY = "Press any key to continue...";
-        static constexpr const char* INVALID_INPUT = "Error: invalid input, select a number between ";
-        static constexpr const char* MUST_BE_NUMBER = "Error: you must enter a number";
-        static constexpr const char* GOODBYE = "Goodbye, press any key to continue. . .";
-        static constexpr const char* AUTO_TOOLS_BROWSER = "Automatic Tools (BROWSER OPENING)";
-        static constexpr const char* ENTER_CHOICE = "Enter your choice: ";
-        static constexpr const char* DOWNLOADING = "Downloading...";
-        static constexpr const char* NO_RECORDING_SOFTWARE = "No recording or sharing software found";
-        static constexpr const char* CHECKING_SCREEN_SHARE = "Checking screen sharing applications...";
-        static constexpr const char* FOUND_SOFTWARE = "Found: ";
-        static constexpr const char* WINDOWS_REMOTE_SERVICE = "Windows Remote Desktop Service active";
-        static constexpr const char* SELECT_PROCESS = "Choose which process to terminate or go back";
-        static constexpr const char* RECORDING_NOTE = "Note: Active recordings may be corrupted or deleted.";
-        static constexpr const char* TERMINATING_PROCESS = "Terminating process...";
-        static constexpr const char* PROCESS_TERMINATED = "Process terminated";
-        static constexpr const char* ERR = "Error:";
-        static constexpr const char* NO_EVENTS_FOUND = "No events found";
-        static constexpr const char* REGISTRY_OPENING = "Opening Registry Editor";
-        static constexpr const char* OPEN_DIR_CHOICE = "Select a number to open the directory";
-        static constexpr const char* TEMP_FILE_ERROR = "Unable to create temporary file.";
-        static constexpr const char* BAM_SCRIPT_ERROR = "Error running BAM script";
-        static constexpr const char* JOURNAL_LOADING = "Searching selected journal path...";
-        static constexpr const char* SEARCHING = "Searching . . .";
-        static constexpr const char* BAM_SEARCHING = "Loading BAM, please wait";
-        static constexpr const char* EVENT_VIEWER_LOADING = "Analyzing Event Viewer, please wait";
-        static constexpr const char* INVALID_COMMAND_ID = "Invalid command ID.";
-        static constexpr const char* AND  = "and";
-        static constexpr const char* DIRECTORY_CREATED = "Directory created successfully.";
-        static constexpr const char* ERR_CREATE_DIR = "Error creating directory.";
-        static constexpr const char* OPENING_REGEDIT = "Opening Registry Editor";
-        static constexpr const char* VIRTUAL_ENVIRONMENT_DETECTED = "Detected virtual environment";
+        static inline const char* ELIMINATION_CONFIRM_QST = LANG_TEXT(
+            "Vuoi eliminare i tutti file presennti sulla cartella White e la cartella stessa? (y/n):",
+            "Do you want to delete all files in the White folder and the folder itself? (y/n):");
+        static inline const char* ELIMINATION_COMPLETE = LANG_TEXT(
+            "Tutti i file nella cartella 'White' sono stati eliminati.",
+            "All files in the 'White' folder have been deleted.");
+        static inline const char* OPERATION_CANCELLED = LANG_TEXT(
+            "\nOperazione annullata. Il programma non verr\205 avviato.",
+            "\nOperation cancelled. The program will not start.");
+        static inline const char* PRESS_KEY = LANG_TEXT(
+            "Premi un tasto per continuare...",
+            "Press any key to continue...");
+        static inline const char* INVALID_INPUT = LANG_TEXT(
+            "Errore: inserimento errato, seleziona un numero tra ",
+            "Error: invalid input, select a number between ");
+        static inline const char* MUST_BE_NUMBER = LANG_TEXT(
+            "Errore: devi inserire un numero",
+            "Error: you must enter a number");
+        static inline const char* GOODBYE = LANG_TEXT(
+            "Arrivederci. . .",
+            "Goodbye. . .");
+        static inline const char* AUTO_TOOLS_BROWSER = LANG_TEXT(
+            "Tool Automatici (APERTURA VIA BROWSER)",
+            "Automatic Tools (BROWSER OPENING)");
+        static inline const char* ENTER_CHOICE = LANG_TEXT(
+            "Inserisci la tua scelta: ",
+            "Enter your choice: ");
+        static inline const char* DOWNLOADING = LANG_TEXT(
+            "Download in corso...",
+            "Downloading...");
+        static inline const char* NO_RECORDING_SOFTWARE = LANG_TEXT(
+            "Nessun software di registrazione o condivisione trovato",
+            "No recording or sharing software found");
+        static inline const char* CHECKING_SCREEN_SHARE = LANG_TEXT(
+            "Controllo applicazioni di condivisione schermo...",
+            "Checking screen sharing applications...");
+        static inline const char* FOUND_SOFTWARE = LANG_TEXT(
+            "Trovato: ",
+            "Found: ");
+        static inline const char* WINDOWS_REMOTE_SERVICE = LANG_TEXT(
+            "Servizio Desktop Remoto di Windows attivo",
+            "Windows Remote Desktop Service active");
+        static inline const char* SELECT_PROCESS = LANG_TEXT(
+            "Scegli quale processo terminare o tornare indietro",
+            "Choose which process to terminate or go back");
+        static inline const char* RECORDING_NOTE = LANG_TEXT(
+            "Nota: Le registrazioni in corso potrebbero venir corrotte o eliminate.",
+            "Note: Active recordings may be corrupted or deleted.");
+        static inline const char* TERMINATING_PROCESS = LANG_TEXT(
+            "Terminazione processo in corso...",
+            "Terminating process...");
+        static inline const char* PROCESS_TERMINATED = LANG_TEXT(
+            "Processo terminato",
+            "Process terminated");
+        static inline const char* ERR = LANG_TEXT(
+            "Errore:",
+            "Error:");
+        static inline const char* NO_EVENTS_FOUND = LANG_TEXT(
+            "Nessun evento rilevato",
+            "No events found");
+        static inline const char* REGISTRY_OPENING = LANG_TEXT(
+            "Aprendo l'Editor del Registro",
+            "Opening Registry Editor");
+        static inline const char* OPEN_DIR_CHOICE = LANG_TEXT(
+            "Seleziona un numero per aprire la directory",
+            "Select a number to open the directory");
+        static inline const char* TEMP_FILE_ERROR = LANG_TEXT(
+            "Impossibile creare il file temporaneo.",
+            "Unable to create temporary file.");
+        static inline const char* BAM_SCRIPT_ERROR = LANG_TEXT(
+            "Errore nell'esecuzione dello script BAM",
+            "Error running BAM script");
+        static inline const char* JOURNAL_LOADING = LANG_TEXT(
+            "Cercando nel percorso del journal selezionato...",
+            "Searching selected journal path...");
+        static inline const char* SEARCHING = LANG_TEXT(
+            "Cercando . . .",
+            "Searching . . .");
+        static inline const char* BAM_SEARCHING = LANG_TEXT(
+            "Caricando BAM, attendere",
+            "Loading BAM, please wait");
+        static inline const char* EVENT_VIEWER_LOADING = LANG_TEXT(
+            "Analizzando l'Event Viewer, attendi",
+            "Analyzing Event Viewer, please wait");
+        static inline const char* INVALID_COMMAND_ID = LANG_TEXT(
+            "ID comando non valido.",
+            "Invalid command ID.");
+        static inline const char* AND = LANG_TEXT(
+            "e",
+            "and");
+        static inline const char* DIRECTORY_CREATED = LANG_TEXT(
+            "Cartella creata con successo.",
+            "Directory created successfully.");
+        static inline const char* ERR_CREATE_DIR = LANG_TEXT(
+            "Impossibile creare la cartella.",
+            "Error creating directory.");
+        static inline const char* OPENING_REGEDIT = LANG_TEXT(
+            "Apertura dell'Editor del Registro di sistema",
+            "Opening Registry Editor");
+        static inline const char* VIRTUAL_ENVIRONMENT_DETECTED = LANG_TEXT(
+            "Ambiente virtuale rilevato",
+            "Detected virtual environment");
     };
 }
-#endif

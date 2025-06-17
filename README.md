@@ -90,7 +90,7 @@ Esegue automaticamente la scansione della Background Activity Moderator (BAM).
    - Dopo aver compilato le risorse, usa `g++` per compilare tutti i file sorgente in un eseguibile Windows. Esegui il seguente comando:
 
      ```bash
-     g++ main.cpp Tools.cpp Menu.cpp ScreenShareDetection.cpp SecurityManager.cpp Utils.cpp resources.res -o white.exe -mwindows -static-libgcc -static-libstdc++
+     g++ main.cpp Tools.cpp Menu.cpp ScreenShareDetection.cpp SecurityManager.cpp Utils.cpp Config.cpp resources.res -o white.exe -mwindows -static-libgcc -static-libstdc++
      ```
 
    - Questo comando genererà un eseguibile chiamato `white.exe` nella stessa cartella.
@@ -203,7 +203,7 @@ Automatically inspects the Background Activity Moderator (BAM) to identify recen
    - After compiling the resources, use `g++` to compile all source files into a Windows executable. Run the following command:
 
      ```bash
-     g++ main.cpp Tools.cpp Menu.cpp ScreenShareDetection.cpp SecurityManager.cpp Utils.cpp resources.res -o white.exe -mwindows -static-libgcc -static-libstdc++
+     g++ main.cpp Tools.cpp Menu.cpp ScreenShareDetection.cpp SecurityManager.cpp Utils.cpp Config.cpp resources.res -o white.exe -mwindows -static-libgcc -static-libstdc++
      ```
 
    - This command will generate an executable named `white.exe` in the same folder.

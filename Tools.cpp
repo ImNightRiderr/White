@@ -160,7 +160,7 @@ void Tools::executeRegistryCommand(int commandId) {
             FileSystem::openRegedit("HKEY_LOCAL_MACHINE\\SYSTEM\\ControlSet001\\Services\\bam\\State\\UserSettings");
             break;
         case 2: 
-            FileSystem::openRegedit("\"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Compatibility Assistant\\Store\"");
+            FileSystem::openRegedit("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Compatibility Assistant\\Store");
             break;
         case 3: 
             FileSystem::openRegedit("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts");
@@ -169,7 +169,7 @@ void Tools::executeRegistryCommand(int commandId) {
             FileSystem::openRegedit("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\OpenSavePidlMRU");
             break;
         case 5: 
-            FileSystem::openRegedit("\"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\"");
+            FileSystem::openRegedit("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters");
             break;
         case 6: 
             FileSystem::openRegedit("HKEY_LOCAL_MACHINE\\SYSTEM\\MountedDevices");

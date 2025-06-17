@@ -134,12 +134,14 @@ public:
         }   
     }
 
-    static void openRegedit(const std::string& path) {
-        auto loading = LoadingAnimation::start(Language::Current::OPENING_REGEDIT);
-        std::string command = "reg add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Applets\\Regedit /v LastKey /t REG_SZ /d " + path + "\" /f >nul 2>&1";
-        system(command.c_str());
-        system("start regedit");
-        Sleep(1500);
-        loading.reset();
-    }
+static void openRegedit(const std::string& path) {
+    auto loading = LoadingAnimation::start(Language::Current::OPENING_REGEDIT);
+    std::string command =
+        "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Applets\\Regedit\" "
+        "/v LastKey /t REG_SZ /d \"" + path + "\" /f >nul 2>&1";
+    system(command.c_str());
+    system("start regedit");
+    Sleep(1500);
+    loading.reset();
+}
 };

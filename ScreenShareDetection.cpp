@@ -20,49 +20,82 @@
 #include <iostream>
 #include <conio.h>
 #include <algorithm>
-#include <intrin.h>
-
-bool IsVM_CPUID()
-{
-    int regs[4] = { 0 };
-    __cpuid(regs, 1);
-    return (regs[2] & (1u << 31)) != 0;
-}
-
 
 bool IsVM_Registry()
 {
-    HKEY hKey = nullptr;
-    if (RegOpenKeyExW(HKEY_LOCAL_MACHINE,
-                      L"HARDWARE\\DESCRIPTION\\System\\BIOS",
-                      0, KEY_READ, &hKey) != ERROR_SUCCESS)
-        return false;
+    std::cout << "\n[DEBUG] Starting VM Detection...\n";
+    
+    const WCHAR* registryPaths[] = {
+        L"HARDWARE\\DESCRIPTION\\System\\BIOS",
+        L"SYSTEM\\CurrentControlSet\\Control\\SystemInformation",
+        L"SYSTEM\\HardwareConfig\\Current"
+    };
 
-    WCHAR buf[128];
-    DWORD size, type;
-    for (LPCWSTR name : { L"SystemManufacturer", L"SystemProductName" })
-    {
-        size = sizeof(buf);
-        if (RegQueryValueExW(hKey, name, nullptr, &type, (LPBYTE)buf, &size) == ERROR_SUCCESS
-            && (type == REG_SZ || type == REG_EXPAND_SZ))
-        {
-            std::wstring s(buf);
-            std::transform(s.begin(), s.end(), s.begin(), ::towlower);
-            for (auto& key : ScreenShareDetection::vmKeys)
-                if (s.find(key) != std::wstring::npos)
-                {
-                    RegCloseKey(hKey);
-                    return true;
+    const WCHAR* registryKeys[] = {
+        L"SystemManufacturer",
+        L"SystemProductName",
+        L"BIOSVendor",
+        L"BIOSVersion",
+        L"VideoBiosVersion",
+        L"SystemFamily"
+    };
+
+    for (const auto& path : registryPaths) {
+        HKEY hKey = nullptr;
+        std::cout << "[DEBUG] Checking registry path: " << std::string(path, path + wcslen(path)) << "\n";
+        
+        if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, path, 0, KEY_READ, &hKey) == ERROR_SUCCESS) {
+            WCHAR buf[1024];
+            DWORD size, type;
+
+            for (const auto& keyName : registryKeys) {
+                size = sizeof(buf);
+                if (RegQueryValueExW(hKey, keyName, nullptr, &type, (LPBYTE)buf, &size) == ERROR_SUCCESS) {
+                    std::wstring value(buf);
+                    std::cout << "[DEBUG] Key: " << std::string(keyName, keyName + wcslen(keyName)) 
+                             << " Value: " << std::string(value.begin(), value.end()) << "\n";
+
+                    std::wstring valueLower = value;
+                    std::transform(valueLower.begin(), valueLower.end(), valueLower.begin(), ::towlower);
+
+                    for (const auto& vmKey : ScreenShareDetection::vmKeys) {
+                        if (valueLower.find(vmKey) != std::wstring::npos) {
+                            std::cout << "\033[31m[DETECTED] VM signature found: " 
+                                    << std::string(vmKey.begin(), vmKey.end()) 
+                                    << " in " << std::string(keyName, keyName + wcslen(keyName)) 
+                                    << "\033[0m\n";
+                            RegCloseKey(hKey);
+                            return true;
+                        }
+                    }
                 }
+            }
+            RegCloseKey(hKey);
         }
+        else {
+            std::cout << "[ERROR] Failed to open registry path: " 
+                     << std::string(path, path + wcslen(path)) << "\n";
+        }
+        
     }
-    RegCloseKey(hKey);
+
+
+    HKEY hVBoxKey = nullptr;
+    if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Oracle\\VirtualBox Guest Additions", 
+                      0, KEY_READ, &hVBoxKey) == ERROR_SUCCESS) {
+        std::cout << "\033[31m[DETECTED] VirtualBox Guest Additions found\033[0m\n";
+        RegCloseKey(hVBoxKey);
+        return true;
+    }
+
+    std::cout << "[DEBUG] No VM detected\n";
+    
     return false;
 }
 
 bool IsRunningInVM()
 {
-    return IsVM_CPUID() || IsVM_Registry();
+    return IsVM_Registry(); 
 }
 
 BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam) {
@@ -96,16 +129,16 @@ BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam) {
 }
 
 bool ScreenShareDetection::checkRecordingSoftware() {
+    
     system("CLS");
     bool foundAny = false;
+    bool foundAnyVM = false;
     std::vector<std::string> foundSoftware;
 
-    showLoadingAnimation(Language::Current::SEARCHING, 999999); 
+    auto loading = LoadingAnimation::start(Language::Current::CHECKING_SCREEN_SHARE);
 
     if (IsRunningInVM()) {
-        std::cout << Config::COLOR_ERROR << Language::Current::VIRTUAL_ENVIRONMENT_DETECTED
-                  << Config::COLOR_RESET << std::endl;
-        
+        foundAnyVM = true;
     }
 
     auto softwareList = getRecordingSoftwareList();
@@ -154,10 +187,22 @@ bool ScreenShareDetection::checkRecordingSoftware() {
             }
         }
     }
-
-    if (!foundAny) {
-        std::cout << Config::COLOR_BLUE << Language::Current::NO_RECORDING_SOFTWARE
+    
+    loading.reset();
+    
+    if(foundAnyVM) {
+        std::cout << Config::COLOR_BLUE << Language::Current::VIRTUAL_ENVIRONMENT_DETECTED
                   << Config::COLOR_RESET << std::endl;
+        std::cout << Config::COLOR_CYAN << Language::Current::CONTINUE_CHECKING << std::endl;
+        Sleep(2000);
+    } else {
+        std::cout << Config::COLOR_BLUE << Language::Current::NO_VIRTUAL_ENVIRONMENT_DETECTED
+                  << Config::COLOR_RESET << std::endl;
+    }
+    if (!foundAny) {
+        std::cout << Config::COLOR_CYAN << Language::Current::NO_RECORDING_SOFTWARE
+                  << Config::COLOR_RESET << std::endl;
+        Sleep(2500);
         return false;
     } else if (!foundSoftware.empty()) {
         handleRecordingSoftwareTermination(foundSoftware);
@@ -231,31 +276,13 @@ bool ScreenShareDetection::isProcessRunning(const std::string& processName) {
 }
 
 void ScreenShareDetection::killProcess(const std::string& processName) {
-    HANDLE hProcessSnap;
-    PROCESSENTRY32W pe32;
-    hProcessSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-    if (hProcessSnap == INVALID_HANDLE_VALUE)
-        return;
-    pe32.dwSize = sizeof(PROCESSENTRY32W);
-    if (!Process32FirstW(hProcessSnap, &pe32)) {
-        CloseHandle(hProcessSnap);
-        return;
-    }
-    std::wstring wProcessName(processName.begin(), processName.end());
-    do {
-        if (_wcsicmp(pe32.szExeFile, wProcessName.c_str()) == 0) {
-            HANDLE hProcess = OpenProcess(PROCESS_TERMINATE, FALSE, pe32.th32ProcessID);
-            if (hProcess != NULL) {
-                TerminateProcess(hProcess, 0);
-                CloseHandle(hProcess);
-            }
-        }
-    } while (Process32NextW(hProcessSnap, &pe32));
-    CloseHandle(hProcessSnap);
+    std::string command = "powershell -Command \"Get-Process -Name '" + processName.substr(0, processName.find_last_of('.')) + "' -ErrorAction SilentlyContinue | Stop-Process -Force\"";
+    system(command.c_str());
 }
 
 void ScreenShareDetection::handleRecordingSoftwareTermination(const std::vector<std::string>& foundSoftware) {
     while (true) {
+        
         system("CLS");
         std::cout << Config::COLOR_BLUE << Language::Current::SELECT_PROCESS
                   << Config::COLOR_RESET << std::endl;
@@ -275,13 +302,14 @@ void ScreenShareDetection::handleRecordingSoftwareTermination(const std::vector<
         std::string input;
         std::getline(std::cin, input);
 
-        if (input.empty() || input == "0") return;
+        if (input == "0") return;
 
         try {
             int choice = std::stoi(input);
             if (choice > 0 && choice <= static_cast<int>(foundSoftware.size())) {
-                showLoadingAnimation(Language::Current::TERMINATING_PROCESS, 999999); 
+                auto loading = LoadingAnimation::start(Language::Current::TERMINATING_PROCESS);
                 killProcess(foundSoftware[choice-1]);
+                loading.reset();
                 std::cout << Config::COLOR_BLUE << Language::Current::PROCESS_TERMINATED << ": " << Config::COLOR_CYAN
                           << foundSoftware[choice-1] << Config::COLOR_RESET << std::endl;
                 return;
@@ -300,7 +328,8 @@ const std::vector<std::wstring> ScreenShareDetection::vmKeys = {
     L"hyper-v", L"microsoft corporation", L"microsoft virtual pc",
     L"microsoft virtual server", L"parallels", L"bhyve",
     L"amazon ec2", L"google compute engine",
-    L"microsoft azure", L"digitalocean", L"openstack"
+    L"microsoft azure", L"digitalocean", L"openstack",
+    L"virtual machine", L"parallels software international inc." // aggiungi qui se serve
 };
 
 
@@ -350,7 +379,7 @@ const std::vector<std::string> ScreenShareDetection::keywords = {
     "estás compartiendo tu pantalla", "pantalla compartida", "compartiendo su pantalla",
     "compartiendo una ventana", "compartir una ventana", "ventana compartida", "está compartiendo una ventana",
     "pantalla en uso", "ventana en uso", "compartiendo ora", "presentando pantalla",
-    "presentando ventana", "compartición activa", "compartiendo ahora", "compartir ora",
+    "presentando ventana", "compartición activa", "compartiendo ora", "compartir ora",
     "compartición de pantalla", "compartición de ventana", "presentazione attiva",
     "estás presentando", "está presentando", "pantalla activa", "ventana activa",
     "compartiendo contenido", "compartiendo presentación", "compartición en corso",

@@ -227,5 +227,11 @@ namespace Language {
         static inline const char* VIRTUAL_ENVIRONMENT_DETECTED = LANG_TEXT(
             "Ambiente virtuale rilevato",
             "Detected virtual environment");
+        static inline const char* CONTINUE_CHECKING = LANG_TEXT(
+            "Continuando il controllo per software di registrazione o condivisone schermo...",
+            "Continuing the check for recording software or screensharing...");
+        static inline const char* NO_VIRTUAL_ENVIRONMENT_DETECTED = LANG_TEXT(
+            "Nessun ambiente virtuale rilevato",
+            "No virtual environment detected");
     };
 }

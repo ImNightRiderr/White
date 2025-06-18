@@ -25,7 +25,6 @@
 
 void Tools::downloadManualTool(int toolId) {
     try {
-        auto loading = LoadingAnimation::start(Language::Current::DOWNLOADING);
         switch (toolId) {
             case 1:  FileSystem::downloadFile(Config::PROCESS_HACKER.url, Config::PROCESS_HACKER.filename); break; 
             case 2:  FileSystem::downloadFile("https://www.nirsoft.net/utils/lastactivityview.zip", "lastactivityview.zip"); break; 
@@ -50,7 +49,6 @@ void Tools::downloadManualTool(int toolId) {
             case 21: FileSystem::downloadFile("https://www.nirsoft.net/utils/muicacheview.zip", "muicacheview.zip"); break;
             case 22: FileSystem::downloadFile("https://www.nirsoft.net/utils/regdllview-x64.zip", "regdllview-x64.zip"); break; 
         }
-        loading.reset();
     } catch (const std::exception& e) {
         std::cerr << Config::COLOR_ERROR << Language::Current::ERR << " " << e.what() 
                   << Config::COLOR_RESET << std::endl;

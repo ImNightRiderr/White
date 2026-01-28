@@ -142,7 +142,7 @@ Qualsiasi violazione dei termini e delle condizioni di questa licenza comporter√
 
 **WHITE SOFTWARE LICENSE**
 
-**Copyright (c) 2024-2025 NightRiderr\_**
+**Copyright (c) 2024-2026 NightRiderr\_**
 
 ## 1. Definitions
 
@@ -175,7 +175,7 @@ The name of the author (**NightRiderr\_**) must remain clearly visible and unalt
 
 You may modify the Software for any purpose, provided that:
 
-* You clearly document each change, including its nature, date, and the author (or entity) who made it, both in the source code and accompanying documentation.
+* You clearly document each change, including its nature, date, and the author (or entity) who made it, both in the source code and accompanying documentation and communicate it to the Licensor.
 
 ---
 

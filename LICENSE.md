@@ -1,6 +1,6 @@
 # LICENZA SOFTWARE WHITE / WHITE SOFTWARE LICENSE 
 
-**Copyright (c) 2024-2025 NightRiderr\_**
+**Copyright (c) 2024-2026 NightRiderr\_**
 
 ---
 
@@ -35,14 +35,13 @@ Il nome dell'autore (**NightRiderr\_**) deve rimanere chiaramente visibile e non
 
 È consentito modificare il Software per qualsiasi scopo, a condizione di:
 
-* Documentare chiaramente ogni modifica nella forma, nella data e nell’autore (o entità) che l’ha apportata, sia nel codice sorgente che nella documentazione allegata.
+* Documentare chiaramente ogni modifica nella forma, nella data e nell’autore (o entità) che l’ha apportata, sia nel codice sorgente che nella documentazione allegata e qundi riferirlo al Licenziante.
 
 ---
 
 ## 6. Distribuzione
 
 1. È consentito distribuire copie originali o modificate del Software, in forma sorgente o binaria, purché:
-
    * Il testo di licenza e l’avviso di copyright rimangano intatti.
    * Sia disponibile il codice sorgente completo corrispondente.
 2. Se il Software è reso disponibile per uso tramite rete (ad es. SaaS), ogni utente deve poter richiedere una copia del codice sorgente completo.
